@@ -2,7 +2,7 @@ extends KinematicBody2D
 
 var linear_vel = Vector2()
 var speed = 500
-var gravity = 10
+var gravity = 15
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
