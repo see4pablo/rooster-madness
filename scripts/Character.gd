@@ -5,13 +5,15 @@ var target_vel = Vector2()
 var mouse_target = Vector2()
 var origin_for_dash = Vector2()
 
-var gravity = 500
+var gravity = 800
 var gliding_gravity = gravity/2
 
 var speed = 300
 
-var dash_speed = speed * 3
-var dash_distance = speed/2
+var jump_speed = 3*speed/2
+
+var dash_speed = speed * 6
+var dash_distance = 3*speed/4
 
 #booleans of state
 var facing_right = true
@@ -30,6 +32,13 @@ func _ready():
 func rooster_killed():
 	#things that happen if the hero killed an enemy
 	can_dash = true
+	
+func rooster_hit_enemy():
+	#things that happen if the hero hit an enemy:
+	#attack! and short jump above the enemy
+	dashing = false
+	linear_vel.x = 0
+	linear_vel.y = -speed
 
 func apply_gravity(delta):
 	if not dashing:
@@ -37,6 +46,9 @@ func apply_gravity(delta):
 			linear_vel.y += gliding_gravity * delta
 		else:
 			linear_vel.y += gravity * delta	
+			
+			
+
 
 func _physics_process(delta):
 	
@@ -61,7 +73,7 @@ func _physics_process(delta):
 		#jumping and gliding
 		if Input.is_action_pressed("jump"):
 			if on_floor:
-				linear_vel.y = -speed
+				linear_vel.y = -jump_speed
 			else:
 				if falling:
 					#gliding
@@ -85,17 +97,20 @@ func _physics_process(delta):
 		
 	
 	#animation
-	if on_floor:
-		if linear_vel.length_squared() > 10:
-			playback.travel("walk")
+	if dashing:
+		pass
+	else:	
+		if on_floor:
+			if linear_vel.length_squared() > 10:
+				playback.travel("walk")
+			else:
+				playback.travel("idle")	 
 		else:
-			playback.travel("idle")	 
-	else:
-		if linear_vel.y > 0:
-			playback.travel("fall")
-		elif linear_vel.y < 0:
-			playback.travel("jump")
-			
+			if linear_vel.y > 0:
+				playback.travel("fall")
+			elif linear_vel.y < 0:
+				playback.travel("jump")
+				
 	if facing_right and linear_vel.x < 0:
 		scale.x = -1
 		facing_right = false
