@@ -3,10 +3,15 @@ extends KinematicBody2D
 var linear_vel = Vector2()
 var target_vel = Vector2()
 var mouse_target = Vector2()
-var speed = 300
-var dash_speed = speed * 3
+var origin_for_dash = Vector2()
+
 var gravity = 500
-var falling_gravity = gravity
+var gliding_gravity = gravity/2
+
+var speed = 300
+
+var dash_speed = speed * 3
+var dash_distance = speed/2
 
 #booleans of state
 var facing_right = true
@@ -14,6 +19,7 @@ var falling = true
 var dashing = false
 var can_dash = false
 var on_floor = false
+var gliding = false
 
 onready var playback = $AnimationTree.get("parameters/playback")
 
@@ -25,10 +31,14 @@ func rooster_killed():
 	#things that happen if the hero killed an enemy
 	can_dash = true
 
+func apply_gravity(delta):
+	if not dashing:
+		if gliding: 
+			linear_vel.y += gliding_gravity * delta
+		else:
+			linear_vel.y += gravity * delta	
+
 func _physics_process(delta):
-	
-	linear_vel.y += falling_gravity * delta	
-	linear_vel = move_and_slide(linear_vel, Vector2.UP)
 	
 	on_floor = is_on_floor()
 	if on_floor: 
@@ -40,7 +50,7 @@ func _physics_process(delta):
 	#horizontal movement
 	target_vel.x = 0
 	target_vel.y = 0
-	falling_gravity = gravity
+	gliding = false
 	
 	if not dashing:		
 		
@@ -53,22 +63,26 @@ func _physics_process(delta):
 			if on_floor:
 				linear_vel.y = -speed
 			else:
-				#gliding
-				falling_gravity = 0.5*gravity
+				if falling:
+					#gliding
+					gliding = true
 		if can_dash and Input.is_action_just_pressed("left_click"):
 			can_dash = false
 			dashing = true
+			origin_for_dash = position
 			mouse_target = get_global_mouse_position()
-			linear_vel = (mouse_target - position).normalized() * dash_speed 
+			linear_vel = (mouse_target - origin_for_dash).normalized() * dash_speed 
 
 		linear_vel.x = lerp(linear_vel.x, target_vel.x, 0.5)
-	
-	linear_vel.y += target_vel.y
+		linear_vel.y += target_vel.y
 	
 	if dashing:
 		#dash a certain distance, ignoring gravity and friction
+		if position.distance_to(origin_for_dash) >= dash_distance:
+			dashing = false
+			linear_vel.x = 0;
+			linear_vel.y = 0;	
 		
-		pass
 	
 	#animation
 	if on_floor:
@@ -93,3 +107,6 @@ func _physics_process(delta):
 		falling = false
 	if not falling and linear_vel.y > 0:
 		falling = true
+		
+	apply_gravity(delta)
+	linear_vel = move_and_slide(linear_vel, Vector2.UP)
