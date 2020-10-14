@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/foreground.png-78f54d6aeb00c24072fc427b2e909e66.stex"
+path="res://.import/The Midnight Background.png-50c2878600a481c1054650f6fc23049c.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/cyberpunk-street-files/PNG/layers/foreground.png"
-dest_files=[ "res://.import/foreground.png-78f54d6aeb00c24072fc427b2e909e66.stex" ]
+source_file="res://sprites/land/The Midnight Background.png"
+dest_files=[ "res://.import/The Midnight Background.png-50c2878600a481c1054650f6fc23049c.stex" ]
 
 [params]
 

@@ -178,3 +178,10 @@ tree_root = SubResource( 23 )
 anim_player = NodePath("../AnimationPlayer")
 active = true
 parameters/playback = SubResource( 24 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+zoom = Vector2( 0.6, 0.6 )
+limit_top = 0
+limit_bottom = 500
+smoothing_enabled = true

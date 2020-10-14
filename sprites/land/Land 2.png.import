@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/foreground.png-78f54d6aeb00c24072fc427b2e909e66.stex"
+path="res://.import/Land 2.png-ec0d9bf7fd78cd48e10701d841f3f732.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/cyberpunk-street-files/PNG/layers/foreground.png"
-dest_files=[ "res://.import/foreground.png-78f54d6aeb00c24072fc427b2e909e66.stex" ]
+source_file="res://sprites/land/Land 2.png"
+dest_files=[ "res://.import/Land 2.png-ec0d9bf7fd78cd48e10701d841f3f732.stex" ]
 
 [params]
 
