@@ -57,14 +57,11 @@ texture = ExtResource( 4 )
 centered = false
 
 [node name="Enemy" parent="." instance=ExtResource( 5 )]
-position = Vector2( 391.118, 438.637 )
+position = Vector2( 500, 435 )
+linear_velocity = Vector2( 1, 0 )
 
 [node name="EnemyTimer" type="Timer" parent="."]
-wait_time = 0.5
-
-[node name="StartTimer" type="Timer" parent="."]
-wait_time = 2.0
-one_shot = true
+wait_time = 0.001
 
 [node name="EnemyPath" type="Path" parent="."]
 curve = SubResource( 2 )
