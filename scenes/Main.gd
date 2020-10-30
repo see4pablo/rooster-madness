@@ -40,3 +40,7 @@ func new_scarecrow():
 		
 
 
+
+
+func _on_Character_dead():
+	get_tree().change_scene("res://scenes/Dead Screen.tscn")

@@ -27,8 +27,8 @@ var receiving_hit = false
 var lives = 3
 
 signal send_me(me)
-
 signal lives_changed(number_of_lives)
+signal dead()
 
 onready var playback = $AnimationTree.get("parameters/playback")
 
@@ -37,7 +37,7 @@ func _ready():
 	lives = 3
 	pass # Replace with function body.
 
-func rooster_killed():
+func rooster_killed_enemy():
 	#things that happen if the hero killed an enemy
 	can_dash = true
 
@@ -45,7 +45,7 @@ func reduce_lives():
 	lives -= 1
 	emit_signal("lives_changed",lives)
 	if(lives <= 0):
-		rooster_killed()
+		emit_signal("dead")
 	
 func rooster_hit_enemy():
 	#things that happen if the hero hit an enemy:
