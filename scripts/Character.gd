@@ -136,7 +136,7 @@ func _physics_process(delta):
 	
 	#animation
 	if dashing:
-		pass
+		playback.travel("dash")
 	else:	
 		if on_floor:
 			if linear_vel.length_squared() > 10:

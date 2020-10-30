@@ -1,7 +1,9 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=36 format=2]
 
 [ext_resource path="res://sprites/chicken.png" type="Texture" id=1]
 [ext_resource path="res://scripts/Character.gd" type="Script" id=2]
+[ext_resource path="res://sounds/dash/sfx_interact.wav" type="AudioStream" id=3]
+[ext_resource path="res://sounds/jump/SFX_Jump_09.wav" type="AudioStream" id=4]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 13.25
@@ -20,6 +22,20 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
 "values": [ 3, 4 ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath("AudioDash")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ 0.0 ],
+"method": "play"
+} ]
 }
 
 [sub_resource type="Animation" id=3]
@@ -82,6 +98,20 @@ tracks/0/keys = {
 "update": 1,
 "values": [ 1, 2 ]
 }
+tracks/1/type = "method"
+tracks/1/path = NodePath("AudioJump")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ 0.0 ],
+"method": "play"
+} ]
+}
 
 [sub_resource type="Animation" id=7]
 loop = true
@@ -97,6 +127,9 @@ tracks/0/keys = {
 "update": 1,
 "values": [ 3, 4, 5, 4 ]
 }
+
+[sub_resource type="AnimationNodeAnimation" id=25]
+animation = "dash"
 
 [sub_resource type="AnimationNodeAnimation" id=8]
 animation = "fall"
@@ -134,7 +167,21 @@ switch_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=22]
 
+[sub_resource type="AnimationNodeStateMachineTransition" id=26]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=27]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=28]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=29]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=30]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=31]
+
 [sub_resource type="AnimationNodeStateMachine" id=23]
+states/dash/node = SubResource( 25 )
+states/dash/position = Vector2( 514.994, 246.052 )
 states/fall/node = SubResource( 8 )
 states/fall/position = Vector2( 218, 292.052 )
 states/idle/node = SubResource( 9 )
@@ -145,9 +192,9 @@ states/start_jump/node = SubResource( 11 )
 states/start_jump/position = Vector2( 729.284, 190.052 )
 states/walk/node = SubResource( 12 )
 states/walk/position = Vector2( 578, 100 )
-transitions = [ "idle", "walk", SubResource( 13 ), "walk", "idle", SubResource( 14 ), "start_jump", "jump", SubResource( 15 ), "idle", "fall", SubResource( 16 ), "walk", "fall", SubResource( 17 ), "walk", "start_jump", SubResource( 18 ), "idle", "start_jump", SubResource( 19 ), "jump", "fall", SubResource( 20 ), "fall", "idle", SubResource( 21 ), "fall", "walk", SubResource( 22 ) ]
+transitions = [ "idle", "walk", SubResource( 13 ), "walk", "idle", SubResource( 14 ), "start_jump", "jump", SubResource( 15 ), "idle", "fall", SubResource( 16 ), "walk", "fall", SubResource( 17 ), "walk", "start_jump", SubResource( 18 ), "idle", "start_jump", SubResource( 19 ), "jump", "fall", SubResource( 20 ), "fall", "idle", SubResource( 21 ), "fall", "walk", SubResource( 22 ), "jump", "dash", SubResource( 26 ), "walk", "dash", SubResource( 27 ), "fall", "dash", SubResource( 28 ), "idle", "dash", SubResource( 29 ), "dash", "idle", SubResource( 30 ), "dash", "fall", SubResource( 31 ) ]
 start_node = "idle"
-graph_offset = Vector2( 71.9937, 75.052 )
+graph_offset = Vector2( 71.9937, 57.34 )
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=24]
 
@@ -187,3 +234,10 @@ limit_bottom = 500
 smoothing_enabled = true
 
 [node name="Cooldown" type="Timer" parent="."]
+[node name="AudioDash" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+volume_db = -10.0
+
+[node name="AudioJump" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+volume_db = -16.058
