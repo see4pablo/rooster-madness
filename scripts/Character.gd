@@ -20,6 +20,7 @@ var facing_right = true
 var falling = true
 var dashing = false
 var can_dash = false
+var waiting_cooldown = false
 var on_floor = false
 var gliding = false
 var receiving_hit = false
@@ -35,7 +36,7 @@ onready var playback = $AnimationTree.get("parameters/playback")
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	lives = 3
-	pass # Replace with function body.
+	can_dash = true
 
 func rooster_killed_enemy():
 	#things that happen if the hero killed an enemy
@@ -75,11 +76,18 @@ func apply_gravity(delta):
 
 
 func _physics_process(delta):
-	
 	on_floor = is_on_floor()
 	if on_floor: 
-		can_dash = true
+		if falling:
+			$Cooldown.start(3)
+			$Cooldown.connect("timeout", self, "_on_Cooldown_timeout")
+			can_dash = false
+			waiting_cooldown = true
+		if not waiting_cooldown:
+			can_dash = true
 		dashing = false
+		
+		#yield($Cooldown, "timeout")
 	
 	#input
 	
@@ -163,3 +171,8 @@ func _on_Enemy_body_entered(body):
 	else: 
 		rooster_get_hit()
 
+
+
+func _on_Cooldown_timeout():
+	can_dash = true
+	waiting_cooldown = false
