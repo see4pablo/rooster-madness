@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://scenes/Character.tscn" type="PackedScene" id=1]
 [ext_resource path="res://sprites/cyberpunk-street-files/PNG/layers/far-buildings.png" type="Texture" id=2]
@@ -14,12 +14,6 @@ height = 17.1763
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 780.382, 15.871 )
 
-[sub_resource type="Curve3D" id=3]
-_data = {
-"points": PoolVector3Array( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.0190856, 0.0143143, 0, 0, 0, 0, 0, 0, 0, -0.887486, 0.0238571, 0, 0, 0, 0, 0, 0, 0, 0.849314, 0.0334, 0, 0, 0, 0, 0, 0, 0, 0.0190856, 0.0143143, 0 ),
-"tilts": PoolRealArray( 0, 0, 0, 0, 0 )
-}
-
 [node name="Main" type="Node2D"]
 script = ExtResource( 6 )
 Enemy = ExtResource( 5 )
@@ -27,9 +21,9 @@ Enemy = ExtResource( 5 )
 [node name="Character" parent="." instance=ExtResource( 1 )]
 position = Vector2( 111.701, 449.953 )
 
-[node name="Area2D2" type="Area2D" parent="Character"]
+[node name="cuerpo" type="Area2D" parent="Character"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Character/Area2D2"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Character/cuerpo"]
 position = Vector2( 0, 3.4 )
 rotation = 1.5708
 shape = SubResource( 1 )
@@ -67,16 +61,5 @@ scale = Vector2( 2.7, 2.7 )
 texture = ExtResource( 4 )
 centered = false
 
-[node name="Enemy" parent="." instance=ExtResource( 5 )]
-position = Vector2( 500, 435 )
-linear_velocity = Vector2( 1, 0 )
-
 [node name="EnemyTimer" type="Timer" parent="."]
 wait_time = 0.001
-
-[node name="EnemyPath" type="Path" parent="."]
-curve = SubResource( 3 )
-
-[node name="EnemySpawnLocation" type="PathFollow" parent="EnemyPath"]
-[connection signal="body_entered" from="Character/Area2D2" to="Enemy" method="_on_Area2D2_body_entered" binds= [ Vector2( 0, 0 ) ]]
-[connection signal="body_entered" from="Enemy" to="Character" method="_on_Enemy_body_entered"]

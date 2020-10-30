@@ -3,7 +3,7 @@ export (PackedScene) var Enemy
 
 # Declare member variables here. Examples:
 var new_enemy_position = Vector2(500,435)
-var enemies = 4
+var enemies = 1
 
 
 # Called when the node enters the scene tree for the first time.
@@ -35,8 +35,8 @@ func new_scarecrow():
 	scarecrow.position = new_enemy_position
 	add_child(scarecrow)
 	scarecrow.connect("body_entered", $Character, "_on_Enemy_body_entered")
+	$Character/cuerpo.connect("body_entered", scarecrow, "_on_cuerpo_body_entered")
 	enemies -= 1
 		
 
-func _on_Area2D2_body_entered(body, extra_arg_0):
-	print(extra_arg_0.y)
+

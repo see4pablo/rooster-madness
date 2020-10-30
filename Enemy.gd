@@ -28,7 +28,7 @@ func _ready():
 
 func is_on_floor():
 	var pos = position
-	if pos.y >= 430:
+	if pos.y >= 435:
 		return true
 	return false
 	
@@ -91,6 +91,6 @@ func _process(delta):
 	pass
 
 		
-func _on_Area2D2_body_entered(body, extra_arg_0):
+func _on_cuerpo_body_entered(body):
 	get_hit(Vector2(1,0))
 	print("me pegaste! >:c")
