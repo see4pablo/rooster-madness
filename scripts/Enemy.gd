@@ -13,6 +13,7 @@ var dir = Vector2(-1,0)
 var falling = false
 var flaying = false
 var on_floor = false
+var floor_y = 443
 
 var gravity = 800
 var gliding_gravity = gravity/2
@@ -29,7 +30,7 @@ func _ready():
 
 func is_on_floor():
 	var pos = position
-	if pos.y >= 443:
+	if pos.y >= floor_y:
 		return true
 	return false
 	
@@ -37,6 +38,10 @@ func _physics_process(delta):
 	on_floor = is_on_floor()
 	
 	if not falling and not flaying:
+		# stay on floor if you are walking
+		if not on_floor:
+			position.y = floor_y
+		# fix side of sprite
 		if facing_left and dir.x == 1:
 			facing_left = false
 			$AnimatedSprite.scale.x = -2
