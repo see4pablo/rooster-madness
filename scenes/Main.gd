@@ -34,15 +34,9 @@ func new_scarecrow():
 	new_enemy_position.x += 200
 	scarecrow.position = new_enemy_position
 	add_child(scarecrow)
+	scarecrow.connect("body_entered", $Character, "_on_Enemy_body_entered")
 	enemies -= 1
 		
-func _on_EnemyTimer_timeout():
-	# Choose a random location on Path2D.
-	$EnemyPath/EnemySpawnLocation.offset = randi()
-	# Create a scarecrow instance and add it to the scene.
-	var scarecrow = Enemy.instance()
-	add_child(scarecrow)
-	# Set the mob's position to a random location.
-	scarecrow.position = $EnemyPath/EnemySpawnLocation.position
-	# Set the velocity (speed & direction).
-	scarecrow.linear_velocity = Vector2(rand_range(scarecrow.min_speed, scarecrow.max_speed), 0)
+
+func _on_Area2D2_body_entered(body, extra_arg_0):
+	print(extra_arg_0.y)

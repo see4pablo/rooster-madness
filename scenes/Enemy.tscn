@@ -1,19 +1,19 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Enemy.gd" type="Script" id=1]
 [ext_resource path="res://sprites/enemy/scarecrow.png" type="Texture" id=2]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 2 )
-region = Rect2( 30, 30, 30, 30 )
+region = Rect2( 0, 0, 30, 30 )
 
 [sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 2 )
-region = Rect2( 60, 30, 30, 30 )
+region = Rect2( 30, 30, 30, 30 )
 
 [sub_resource type="AtlasTexture" id=3]
 atlas = ExtResource( 2 )
-region = Rect2( 0, 0, 30, 30 )
+region = Rect2( 60, 30, 30, 30 )
 
 [sub_resource type="AtlasTexture" id=4]
 atlas = ExtResource( 2 )
@@ -37,15 +37,15 @@ region = Rect2( 60, 30, 30, 30 )
 
 [sub_resource type="SpriteFrames" id=9]
 animations = [ {
-"frames": [ SubResource( 1 ), SubResource( 2 ) ],
-"loop": false,
-"name": "get_hit",
-"speed": 10.0
-}, {
-"frames": [ SubResource( 3 ) ],
+"frames": [ SubResource( 1 ) ],
 "loop": true,
 "name": "falling",
 "speed": 5.0
+}, {
+"frames": [ SubResource( 2 ), SubResource( 3 ) ],
+"loop": false,
+"name": "get_hit",
+"speed": 10.0
 }, {
 "frames": [ SubResource( 4 ), SubResource( 5 ) ],
 "loop": true,
@@ -61,6 +61,9 @@ animations = [ {
 [sub_resource type="CapsuleShape2D" id=10]
 radius = 13.3676
 height = 0.0
+
+[sub_resource type="RectangleShape2D" id=11]
+extents = Vector2( 22.872, 22.9564 )
 
 [node name="Enemy" type="RigidBody2D"]
 collision_mask = 0
@@ -84,3 +87,10 @@ shape = SubResource( 10 )
 [node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
 position = Vector2( 1.02105, 3.21983 )
 scale = Vector2( 2.85726, 2.64208 )
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2( 1.05112, -1.89202 )
+rotation = 0.785398
+shape = SubResource( 11 )

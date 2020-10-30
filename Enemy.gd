@@ -24,20 +24,25 @@ var jump_friction = 0.2
 func _ready():
 	speed = rand_range(min_speed, max_speed)
 	#set_gravity_scale(gravity)
-	
+
+
+func is_on_floor():
+	var pos = position
+	if pos.y >= 430:
+		return true
+	return false
 	
 func _physics_process(delta):
-	#on_floor = is_on_floor()	
-	if (position.y < 430) and (not falling and not flaying):
-		get_hit(Vector2(1,0))
+	on_floor = is_on_floor()	
 	
 	if not falling and not flaying:
-			# Enemy walk with this things
-			scale.x = -dir.x
+		if scale.y != 1:
 			scale.y = 1
-			$AnimatedSprite.animation = "walk"
-			linear_vel = dir * speed
-			set_linear_velocity(linear_vel)
+		#Enemy walk with this things
+		scale.x = -dir.x
+		$AnimatedSprite.animation = "walk"
+		linear_vel = dir * speed
+		set_linear_velocity(linear_vel)
 	
 	if flaying:
 		set_friction(jump_friction)
@@ -53,10 +58,9 @@ func _physics_process(delta):
 		scale.y = -1
 		if linear_vel.y <= gravity:
 			linear_vel.y += gliding_gravity * delta * 10
-		var pos = position
-		if pos.y >= 430:
+		if is_on_floor():
 			falling = false
-			pos.y = 435
+			position.y = 435
 			linear_vel.y = 0
 			scale.y = 1
 		set_linear_velocity(linear_vel)
@@ -79,9 +83,14 @@ func get_hit(direction):
 	$AnimatedSprite.animation = "get_hit"
 	flaying = true
 	falling = false
-	
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	#apply_gravity(delta)
 	pass
+
+		
+func _on_Area2D2_body_entered(body, extra_arg_0):
+	get_hit(Vector2(1,0))
+	print("me pegaste! >:c")

@@ -125,3 +125,8 @@ func _physics_process(delta):
 		
 	apply_gravity(delta)
 	linear_vel = move_and_slide(linear_vel, Vector2.UP)
+
+
+func _on_Enemy_body_entered(body):
+	print("holi")
+	rooster_hit_enemy()
