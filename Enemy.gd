@@ -39,10 +39,10 @@ func _physics_process(delta):
 	if not falling and not flaying:
 		if facing_left and dir.x == 1:
 			facing_left = false
-			scale.x = -1
+			$AnimatedSprite.scale.x = -2
 		elif (not facing_left) and dir.x == -1:
 			facing_left = true
-			scale.x = -1
+			$AnimatedSprite.scale.x = -2
 		#Enemy walk with this things
 		$AnimatedSprite.animation = "walk"
 		linear_vel = dir * speed
@@ -74,13 +74,13 @@ func get_hit(direction):
 	if direction.x < 0:
 		if facing_left:
 			facing_left = false
-			scale.x = -1
+			$AnimatedSprite.scale.x = -2
 		dir = Vector2(1,0)
 		new_linear_vel = Vector2(-1,0)
 	else:
 		if not facing_left:
 			facing_left = true 
-			scale.x = -1
+			$AnimatedSprite.scale.x = -2
 		dir = Vector2(-1,0)
 		new_linear_vel = Vector2(1,0)
 	new_linear_vel.x = new_linear_vel.x*500

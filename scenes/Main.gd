@@ -3,7 +3,7 @@ export (PackedScene) var Enemy
 
 # Declare member variables here. Examples:
 var new_enemy_position = Vector2(500,443)
-var enemies = 3
+var enemies = 1
 
 
 # Called when the node enters the scene tree for the first time.

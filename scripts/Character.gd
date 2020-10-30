@@ -53,6 +53,15 @@ func rooster_hit_enemy():
 	dashing = false
 	linear_vel.x = 0
 	linear_vel.y = -speed
+	
+func rooster_get_hit():
+	var new_linear_vel = Vector2(1,1)
+	if facing_right:
+		new_linear_vel.x = -1
+	new_linear_vel.x = new_linear_vel.x*500
+	new_linear_vel.y = -gravity/2
+	reduce_lives()
+	
 
 func apply_gravity(delta):
 	if not dashing:
@@ -88,7 +97,7 @@ func _physics_process(delta):
 		if Input.is_action_pressed("jump"):
 			if on_floor:
 				linear_vel.y = -jump_speed
-				reduce_lives()
+				
 			else:
 				if falling:
 					#gliding
@@ -145,4 +154,6 @@ func _on_Enemy_body_entered(body):
 	if dashing:
 		emit_signal("send_me", linear_vel)
 		rooster_hit_enemy()
+	else: 
+		rooster_get_hit()
 
