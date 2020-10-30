@@ -22,25 +22,21 @@ func new_game():
 
 func go_enemy():
 	$EnemyTimer.start(3) # para 3 segundos
-	yield($EnemyTimer, "timeout")
-	new_scarecrow()
-	if enemies>0:
-		go_enemy()
+	$EnemyTimer.connect("timeout", self, "new_scarecrow")
 	
 	
 func new_scarecrow():
-	var scarecrow = Enemy.instance()
-	#var screensize = get_viewport().get_visible_rect().size
-	new_enemy_position.x += 200
-	scarecrow.position = new_enemy_position
-	add_child(scarecrow)
-	scarecrow.connect("body_entered", $Character, "_on_Enemy_body_entered")
-	$Character.connect("send_me", scarecrow, "signal_hit")
-	enemies -= 1
+	if enemies>0:
+		var scarecrow = Enemy.instance()
+		#var screensize = get_viewport().get_visible_rect().size
+		new_enemy_position.x += 200
+		scarecrow.position = new_enemy_position
+		add_child(scarecrow)
+		scarecrow.connect("body_entered", $Character, "_on_Enemy_body_entered")
+		$Character.connect("send_me", scarecrow, "signal_hit")
+		enemies -= 1
+		go_enemy()
 		
-
-
-
 
 func _on_Character_dead():
 	get_tree().change_scene("res://scenes/Dead Screen.tscn")

@@ -52,12 +52,14 @@ func rooster_hit_enemy():
 	#things that happen if the hero hit an enemy:
 	#attack! and short jump above the enemy
 	dashing = false
+	waiting_cooldown = false
 	linear_vel.x = 0
 	linear_vel.y = -speed
 	
 func rooster_get_hit():
 	receiving_hit = true
 	var new_linear_vel = Vector2(1,-gliding_gravity/2)
+	falling = true
 	if facing_right:
 		new_linear_vel.x = -1
 	new_linear_vel.x = new_linear_vel.x*100
@@ -78,11 +80,6 @@ func apply_gravity(delta):
 func _physics_process(delta):
 	on_floor = is_on_floor()
 	if on_floor: 
-		if falling:
-			$Cooldown.start(3)
-			$Cooldown.connect("timeout", self, "_on_Cooldown_timeout")
-			can_dash = false
-			waiting_cooldown = true
 		if not waiting_cooldown:
 			can_dash = true
 		dashing = false
@@ -94,6 +91,7 @@ func _physics_process(delta):
 	if receiving_hit and on_floor and linear_vel.y>=0:
 		linear_vel.y = 0
 		linear_vel.x = 0
+		falling = false
 		receiving_hit = false
 		
 	#horizontal movement
@@ -119,6 +117,9 @@ func _physics_process(delta):
 		if can_dash and Input.is_action_just_pressed("left_click"):
 			can_dash = false
 			dashing = true
+			$Cooldown.start(2)
+			$Cooldown.connect("timeout", self, "_on_Cooldown_timeout")
+			waiting_cooldown = true
 			origin_for_dash = position
 			mouse_target = get_global_mouse_position()
 			linear_vel = (mouse_target - origin_for_dash).normalized() * dash_speed 
