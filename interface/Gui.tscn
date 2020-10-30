@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://interface/heart_pixel.png" type="Texture" id=1]
 [ext_resource path="res://interface/Gui.gd" type="Script" id=2]
+[ext_resource path="res://interface/scithersword.png" type="Texture" id=3]
 
 [node name="Gui" type="Control"]
 anchor_right = 1.0
@@ -89,3 +90,21 @@ margin_right = 230.0
 margin_bottom = 34.0
 text = "Early Beta 0.1"
 align = 1
+
+[node name="MarginContainer3" type="MarginContainer" parent="."]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 20.0
+margin_top = -169.0
+margin_right = 179.0
+margin_bottom = -20.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Dash_icon" type="TextureRect" parent="MarginContainer3"]
+margin_right = 159.0
+margin_bottom = 149.0
+texture = ExtResource( 3 )
+expand = true
+stretch_mode = 5

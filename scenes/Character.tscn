@@ -128,32 +128,30 @@ tracks/0/keys = {
 "values": [ 3, 4, 5, 4 ]
 }
 
-[sub_resource type="AnimationNodeAnimation" id=25]
+[sub_resource type="AnimationNodeAnimation" id=8]
 animation = "dash"
 
-[sub_resource type="AnimationNodeAnimation" id=8]
+[sub_resource type="AnimationNodeAnimation" id=9]
 animation = "fall"
 
-[sub_resource type="AnimationNodeAnimation" id=9]
+[sub_resource type="AnimationNodeAnimation" id=10]
 animation = "idle"
 
-[sub_resource type="AnimationNodeAnimation" id=10]
+[sub_resource type="AnimationNodeAnimation" id=11]
 animation = "jump"
 
-[sub_resource type="AnimationNodeAnimation" id=11]
+[sub_resource type="AnimationNodeAnimation" id=12]
 animation = "start_jump"
 
-[sub_resource type="AnimationNodeAnimation" id=12]
+[sub_resource type="AnimationNodeAnimation" id=13]
 animation = "walk"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=13]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=14]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=15]
-switch_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=16]
+switch_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=17]
 
@@ -167,6 +165,12 @@ switch_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=22]
 
+[sub_resource type="AnimationNodeStateMachineTransition" id=23]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=24]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=25]
+
 [sub_resource type="AnimationNodeStateMachineTransition" id=26]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=27]
@@ -175,28 +179,24 @@ switch_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=29]
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=30]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=31]
-
-[sub_resource type="AnimationNodeStateMachine" id=23]
-states/dash/node = SubResource( 25 )
+[sub_resource type="AnimationNodeStateMachine" id=30]
+states/dash/node = SubResource( 8 )
 states/dash/position = Vector2( 514.994, 246.052 )
-states/fall/node = SubResource( 8 )
+states/fall/node = SubResource( 9 )
 states/fall/position = Vector2( 218, 292.052 )
-states/idle/node = SubResource( 9 )
+states/idle/node = SubResource( 10 )
 states/idle/position = Vector2( 218, 100 )
-states/jump/node = SubResource( 10 )
+states/jump/node = SubResource( 11 )
 states/jump/position = Vector2( 729.284, 292.052 )
-states/start_jump/node = SubResource( 11 )
+states/start_jump/node = SubResource( 12 )
 states/start_jump/position = Vector2( 729.284, 190.052 )
-states/walk/node = SubResource( 12 )
+states/walk/node = SubResource( 13 )
 states/walk/position = Vector2( 578, 100 )
-transitions = [ "idle", "walk", SubResource( 13 ), "walk", "idle", SubResource( 14 ), "start_jump", "jump", SubResource( 15 ), "idle", "fall", SubResource( 16 ), "walk", "fall", SubResource( 17 ), "walk", "start_jump", SubResource( 18 ), "idle", "start_jump", SubResource( 19 ), "jump", "fall", SubResource( 20 ), "fall", "idle", SubResource( 21 ), "fall", "walk", SubResource( 22 ), "jump", "dash", SubResource( 26 ), "walk", "dash", SubResource( 27 ), "fall", "dash", SubResource( 28 ), "idle", "dash", SubResource( 29 ), "dash", "idle", SubResource( 30 ), "dash", "fall", SubResource( 31 ) ]
+transitions = [ "idle", "walk", SubResource( 14 ), "walk", "idle", SubResource( 15 ), "start_jump", "jump", SubResource( 16 ), "idle", "fall", SubResource( 17 ), "walk", "fall", SubResource( 18 ), "walk", "start_jump", SubResource( 19 ), "idle", "start_jump", SubResource( 20 ), "jump", "fall", SubResource( 21 ), "fall", "idle", SubResource( 22 ), "fall", "walk", SubResource( 23 ), "jump", "dash", SubResource( 24 ), "walk", "dash", SubResource( 25 ), "fall", "dash", SubResource( 26 ), "idle", "dash", SubResource( 27 ), "dash", "idle", SubResource( 28 ), "dash", "fall", SubResource( 29 ) ]
 start_node = "idle"
 graph_offset = Vector2( 71.9937, 57.34 )
 
-[sub_resource type="AnimationNodeStateMachinePlayback" id=24]
+[sub_resource type="AnimationNodeStateMachinePlayback" id=31]
 
 [node name="Character" type="KinematicBody2D"]
 script = ExtResource( 2 )
@@ -221,10 +221,10 @@ anims/start_jump = SubResource( 6 )
 anims/walk = SubResource( 7 )
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = SubResource( 23 )
+tree_root = SubResource( 30 )
 anim_player = NodePath("../AnimationPlayer")
 active = true
-parameters/playback = SubResource( 24 )
+parameters/playback = SubResource( 31 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
@@ -234,6 +234,7 @@ limit_bottom = 500
 smoothing_enabled = true
 
 [node name="Cooldown" type="Timer" parent="."]
+
 [node name="AudioDash" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 3 )
 volume_db = -10.0
