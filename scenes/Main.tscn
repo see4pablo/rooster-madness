@@ -21,9 +21,9 @@ Enemy = ExtResource( 5 )
 [node name="Character" parent="." instance=ExtResource( 1 )]
 position = Vector2( 111.701, 449.953 )
 
-[node name="cuerpo" type="Area2D" parent="Character"]
+[node name="CharacterCollisionArea" type="Area2D" parent="Character"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Character/cuerpo"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Character/CharacterCollisionArea"]
 position = Vector2( 0, 3.4 )
 rotation = 1.5708
 shape = SubResource( 1 )

@@ -19,7 +19,6 @@ var gliding_gravity = gravity/2
 var jump_friction = 0.2
 
 
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	speed = rand_range(min_speed, max_speed)
@@ -28,7 +27,7 @@ func _ready():
 
 func is_on_floor():
 	var pos = position
-	if pos.y >= 435:
+	if pos.y >= 443:
 		return true
 	return false
 	
@@ -36,8 +35,8 @@ func _physics_process(delta):
 	on_floor = is_on_floor()	
 	
 	if not falling and not flaying:
-		if scale.y != 1:
-			scale.y = 1
+		#if scale.y != 1:
+		#	scale.y = 1
 		#Enemy walk with this things
 		scale.x = -dir.x
 		$AnimatedSprite.animation = "walk"
@@ -55,14 +54,14 @@ func _physics_process(delta):
 			$AnimatedSprite.animation = "falling"
 	
 	if falling:
-		scale.y = -1
+		#scale.y = -1
 		if linear_vel.y <= gravity:
 			linear_vel.y += gliding_gravity * delta * 10
 		if is_on_floor():
 			falling = false
 			position.y = 435
 			linear_vel.y = 0
-			scale.y = 1
+			#scale.y = 1
 		set_linear_velocity(linear_vel)
 		
 
@@ -91,6 +90,7 @@ func _process(delta):
 	pass
 
 		
-func _on_cuerpo_body_entered(body):
-	get_hit(Vector2(1,0))
-	print("me pegaste! >:c")
+func signal_hit(vector):
+	get_hit(vector)#Vector2(1,0))
+	
+

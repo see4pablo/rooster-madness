@@ -2,7 +2,7 @@ extends Node2D
 export (PackedScene) var Enemy
 
 # Declare member variables here. Examples:
-var new_enemy_position = Vector2(500,435)
+var new_enemy_position = Vector2(500,443)
 var enemies = 1
 
 
@@ -35,7 +35,8 @@ func new_scarecrow():
 	scarecrow.position = new_enemy_position
 	add_child(scarecrow)
 	scarecrow.connect("body_entered", $Character, "_on_Enemy_body_entered")
-	$Character/cuerpo.connect("body_entered", scarecrow, "_on_cuerpo_body_entered")
+	#scarecrow.emit_signal("body_entered", scarecrow)
+	$Character.connect("send_me", scarecrow, "signal_hit")
 	enemies -= 1
 		
 

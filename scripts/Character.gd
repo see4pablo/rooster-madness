@@ -126,7 +126,10 @@ func _physics_process(delta):
 	apply_gravity(delta)
 	linear_vel = move_and_slide(linear_vel, Vector2.UP)
 
+signal send_me(me)
 
 func _on_Enemy_body_entered(body):
 	print("holi")
-	rooster_hit_enemy()
+	if dashing:
+		emit_signal("send_me", linear_vel)
+		rooster_hit_enemy()
