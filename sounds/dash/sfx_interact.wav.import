@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/sfx_interact.wav-141c20860b3c819b76f95c5b1db6986f.sample"
+
+[deps]
+
+source_file="res://sounds/dash/sfx_interact.wav"
+dest_files=[ "res://.import/sfx_interact.wav-141c20860b3c819b76f95c5b1db6986f.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
