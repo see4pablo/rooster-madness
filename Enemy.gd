@@ -51,7 +51,7 @@ func _physics_process(delta):
 		if vel.y >= 0:
 			flaying = false
 			falling = true
-			$AnimatedSprite.animation = "falling"
+			#$AnimatedSprite.animation = "falling"
 	
 	if falling:
 		#scale.y = -1
@@ -75,8 +75,8 @@ func get_hit(direction):
 		dir = Vector2(-1,0)
 		new_linear_vel = Vector2(1,0)
 	scale.x = -new_linear_vel.x
-	new_linear_vel.x = new_linear_vel.x*100
-	new_linear_vel.y = -gravity*2
+	new_linear_vel.x = new_linear_vel.x*500
+	new_linear_vel.y = -gravity/2
 	linear_vel = new_linear_vel
 	set_linear_velocity(linear_vel)
 	$AnimatedSprite.animation = "get_hit"
@@ -91,6 +91,6 @@ func _process(delta):
 
 		
 func signal_hit(vector):
-	get_hit(vector)#Vector2(1,0))
+	get_hit(vector)
 	
 

@@ -35,7 +35,6 @@ func new_scarecrow():
 	scarecrow.position = new_enemy_position
 	add_child(scarecrow)
 	scarecrow.connect("body_entered", $Character, "_on_Enemy_body_entered")
-	#scarecrow.emit_signal("body_entered", scarecrow)
 	$Character.connect("send_me", scarecrow, "signal_hit")
 	enemies -= 1
 		

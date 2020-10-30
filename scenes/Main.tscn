@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://scenes/Character.tscn" type="PackedScene" id=1]
 [ext_resource path="res://sprites/cyberpunk-street-files/PNG/layers/far-buildings.png" type="Texture" id=2]
@@ -13,7 +13,7 @@ radius = 12.6741
 height = 17.1763
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 780.382, 15.871 )
+extents = Vector2( 1389.94, 15.871 )
 
 [node name="Main" type="Node2D"]
 script = ExtResource( 6 )
@@ -33,7 +33,7 @@ shape = SubResource( 1 )
 position = Vector2( 209.383, 184.997 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2( 571.482, 317.097 )
+position = Vector2( 700, 317.097 )
 shape = SubResource( 2 )
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
