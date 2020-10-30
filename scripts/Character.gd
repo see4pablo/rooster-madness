@@ -22,18 +22,30 @@ var dashing = false
 var can_dash = false
 var on_floor = false
 var gliding = false
+var receiving_hit = false
+#ints of state
+var lives = 3
 
 signal send_me(me)
+
+signal lives_changed(number_of_lives)
 
 onready var playback = $AnimationTree.get("parameters/playback")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	lives = 3
 	pass # Replace with function body.
 
 func rooster_killed():
 	#things that happen if the hero killed an enemy
 	can_dash = true
+
+func reduce_lives():
+	lives -= 1
+	emit_signal("lives_changed",lives)
+	if(lives <= 0):
+		rooster_killed()
 	
 func rooster_hit_enemy():
 	#things that happen if the hero hit an enemy:
@@ -76,6 +88,7 @@ func _physics_process(delta):
 		if Input.is_action_pressed("jump"):
 			if on_floor:
 				linear_vel.y = -jump_speed
+				reduce_lives()
 			else:
 				if falling:
 					#gliding

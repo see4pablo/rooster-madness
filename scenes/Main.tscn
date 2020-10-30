@@ -68,3 +68,4 @@ wait_time = 0.001
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Gui" parent="CanvasLayer" instance=ExtResource( 7 )]
+[connection signal="lives_changed" from="Character" to="CanvasLayer/Gui" method="_on_Character_lives_changed"]
