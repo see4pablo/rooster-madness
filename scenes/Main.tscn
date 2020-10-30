@@ -35,6 +35,8 @@ position = Vector2( 0, 3.4 )
 rotation = 1.5708
 shape = SubResource( 1 )
 
+[node name="Cooldown" type="Timer" parent="Character"]
+
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2( 209.383, 184.997 )
 
