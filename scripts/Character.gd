@@ -6,7 +6,7 @@ var mouse_target = Vector2()
 var origin_for_dash = Vector2()
 
 var gravity = 800
-var gliding_gravity = gravity/2
+var gliding_gravity = gravity/4
 
 var speed = 300
 
@@ -14,6 +14,8 @@ var jump_speed = 3*speed/2
 
 var dash_speed = speed * 6
 var dash_distance = 3*speed/4
+
+var little_jump = Vector2(100,-gravity/4)
 
 #booleans of state
 var facing_right = true
@@ -30,6 +32,8 @@ var lives = 3
 signal send_me(me)
 signal lives_changed(number_of_lives)
 signal dead()
+signal cooldown_started()
+signal cooldown_ended()
 
 onready var playback = $AnimationTree.get("parameters/playback")
 
@@ -37,6 +41,8 @@ onready var playback = $AnimationTree.get("parameters/playback")
 func _ready():
 	lives = 3
 	can_dash = true
+	$Cooldown.connect("timeout", self, "_on_Cooldown_timeout")
+
 
 func rooster_killed_enemy():
 	#things that happen if the hero killed an enemy
@@ -53,17 +59,18 @@ func rooster_hit_enemy():
 	#attack! and short jump above the enemy
 	dashing = false
 	waiting_cooldown = false
+	emit_signal("cooldown_ended")
 	linear_vel.x = 0
 	linear_vel.y = -speed
 	
 func rooster_get_hit():
 	receiving_hit = true
-	var new_linear_vel = Vector2(1,-gliding_gravity/2)
 	falling = true
+	var direction = 1
 	if facing_right:
-		new_linear_vel.x = -1
-	new_linear_vel.x = new_linear_vel.x*100
-	linear_vel = new_linear_vel
+		direction = -1
+	linear_vel = little_jump
+	linear_vel.x = linear_vel.x * direction
 	reduce_lives()
 	
 
@@ -118,7 +125,7 @@ func _physics_process(delta):
 			can_dash = false
 			dashing = true
 			$Cooldown.start(2)
-			$Cooldown.connect("timeout", self, "_on_Cooldown_timeout")
+			emit_signal("cooldown_started")
 			waiting_cooldown = true
 			origin_for_dash = position
 			mouse_target = get_global_mouse_position()
@@ -177,3 +184,4 @@ func _on_Enemy_body_entered(body):
 func _on_Cooldown_timeout():
 	can_dash = true
 	waiting_cooldown = false
+	emit_signal("cooldown_ended")

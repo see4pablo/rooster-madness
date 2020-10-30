@@ -21,7 +21,7 @@ func update_lives(number_of_lives):
 		else:
 			hearts[i].hide()
 			
-func dash_on_cooldwon():
+func dash_on_cooldown():
 	dash_icon.modulate = Color(0.1,0.1,0.1)
 	
 func dash_available():
@@ -40,3 +40,11 @@ func dash_available():
 
 func _on_Character_lives_changed(number_of_lives):
 	update_lives(number_of_lives)
+
+
+func _on_Character_cooldown_started():
+	dash_on_cooldown()
+
+
+func _on_Character_cooldown_ended():
+	dash_available()
