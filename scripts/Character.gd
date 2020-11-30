@@ -1,5 +1,9 @@
 extends KinematicBody2D
 
+const FeatherProyectile_PS = preload("res://scenes/FeatherProyectile.tscn")
+onready var feather_initialPosition = $Feather_initialPosition
+var feather = null
+
 var linear_vel = Vector2()
 var target_vel = Vector2()
 var mouse_target = Vector2()
@@ -121,7 +125,8 @@ func _physics_process(delta):
 				if falling:
 					#gliding
 					gliding = true
-		if can_dash and Input.is_action_just_pressed("left_click"):
+		
+		if can_dash and Input.is_action_just_pressed("dash"):
 			can_dash = false
 			dashing = true
 			$Cooldown.start(2)
@@ -130,6 +135,11 @@ func _physics_process(delta):
 			origin_for_dash = position
 			mouse_target = get_global_mouse_position()
 			linear_vel = (mouse_target - origin_for_dash).normalized() * dash_speed 
+		
+		if can_dash and Input.is_action_just_pressed("throw"):
+			print("Throw plumilla")
+			can_dash = false
+			playback.travel("throw")
 
 		linear_vel.x = lerp(linear_vel.x, target_vel.x, 0.5)
 		linear_vel.y += target_vel.y
@@ -185,3 +195,14 @@ func _on_Cooldown_timeout():
 	can_dash = true
 	waiting_cooldown = false
 	emit_signal("cooldown_ended")
+	
+func throw_feather(direction):
+	if feather == null:
+		print("Throw plumilla 2")
+		feather = FeatherProyectile_PS.instance()
+		feather_initialPosition.add_child(feather)
+		feather.launch(direction)
+		feather = null
+	else:
+		pass
+	
