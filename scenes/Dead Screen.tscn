@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://interface/dead/game_over.png" type="Texture" id=1]
+[ext_resource path="res://sounds/dead/ThisGameIsOver.wav" type="AudioStream" id=2]
+[ext_resource path="res://scripts/Dead Screen.gd" type="Script" id=3]
+
+[node name="Dead Screen" type="CanvasLayer"]
+script = ExtResource( 3 )
+
+[node name="Game_Over" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 1 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 2 )
+volume_db = -15.145

@@ -1,18 +1,141 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://scenes/Character.tscn" type="PackedScene" id=1]
+[ext_resource path="res://sprites/cyberpunk-street-files/PNG/layers/far-buildings.png" type="Texture" id=2]
+[ext_resource path="res://sprites/cyberpunk-street-files/PNG/layers/back-buildings.png" type="Texture" id=3]
+[ext_resource path="res://sprites/cyberpunk-street-files/PNG/layers/foreground.png" type="Texture" id=4]
+[ext_resource path="res://scenes/Enemy.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scripts/Main.gd" type="Script" id=6]
+[ext_resource path="res://interface/Gui.tscn" type="PackedScene" id=7]
+[ext_resource path="res://sprites/box.png" type="Texture" id=8]
+[ext_resource path="res://sprites/efe0a2edacb30f00025e88d8e1f2e3447fd66374.png" type="Texture" id=9]
 
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 780.382, 15.871 )
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 12.6741
+height = 17.1763
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 1389.94, 15.871 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 1.36957, 274.15 )
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 1.57373, 413.755 )
 
 [node name="Main" type="Node2D"]
+script = ExtResource( 6 )
+Enemy = ExtResource( 5 )
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 1750, 35 )
+scale = Vector2( 0.1, 0.1 )
+texture = ExtResource( 9 )
 
 [node name="Character" parent="." instance=ExtResource( 1 )]
 position = Vector2( 111.701, 449.953 )
+
+[node name="CharacterCollisionArea" type="Area2D" parent="Character"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Character/CharacterCollisionArea"]
+position = Vector2( 0, 3.4 )
+rotation = 1.5708
+shape = SubResource( 1 )
+
+[node name="Cooldown" type="Timer" parent="Character"]
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2( 209.383, 184.997 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2( 406.068, 312.181 )
-shape = SubResource( 1 )
+position = Vector2( 700, 317.097 )
+shape = SubResource( 2 )
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2( -687.552, 225.479 )
+shape = SubResource( 3 )
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2( 2083.29, 175.104 )
+shape = SubResource( 4 )
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2( 691, 0 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
+scale = Vector2( 2.7, 2.7 )
+texture = ExtResource( 2 )
+centered = false
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2( 691, 0 )
+
+[node name="Sprite2" type="Sprite" parent="ParallaxBackground/ParallaxLayer2"]
+scale = Vector2( 2.7, 2.7 )
+texture = ExtResource( 3 )
+centered = false
+
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2( 950, 0 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer3"]
+scale = Vector2( 2.7, 2.7 )
+texture = ExtResource( 4 )
+centered = false
+
+[node name="EnemyTimer" type="Timer" parent="."]
+wait_time = 0.001
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Gui" parent="CanvasLayer" instance=ExtResource( 7 )]
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+position = Vector2( 1300, 443 )
+scale = Vector2( 1, 0.9 )
+
+[node name="Sprite" type="Sprite" parent="StaticBody2D2"]
+scale = Vector2( 0.25, 0.25 )
+texture = ExtResource( 8 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D2"]
+polygon = PoolVector2Array( -39.3199, 5.68182, -39.3199, 29.8897, 38.0658, 30.2865, 38.0658, 5.28497, 30.1288, -0.667786, 23.3823, -0.667786, 22.9855, -22.0977, 14.2548, -28.8441, -14.7152, -29.241, -24.2396, -22.8914, -23.8428, -0.270935, -30.1924, -1.06464 )
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="."]
+position = Vector2( 1450, 325 )
+scale = Vector2( 1, 0.9 )
+
+[node name="Sprite" type="Sprite" parent="StaticBody2D3"]
+scale = Vector2( 0.25, 0.25 )
+texture = ExtResource( 8 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D3"]
+polygon = PoolVector2Array( -39.3199, 5.68182, -39.3199, 29.8897, 38.0658, 30.2865, 38.0658, 5.28497, 30.1288, -0.667786, 23.3823, -0.667786, 22.9855, -22.0977, 14.2548, -28.8441, -14.7152, -29.241, -24.2396, -22.8914, -23.8428, -0.270935, -30.1924, -1.06464 )
+
+[node name="StaticBody2D4" type="StaticBody2D" parent="."]
+position = Vector2( 1600, 220 )
+scale = Vector2( 1, 0.9 )
+
+[node name="Sprite" type="Sprite" parent="StaticBody2D4"]
+scale = Vector2( 0.25, 0.25 )
+texture = ExtResource( 8 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D4"]
+polygon = PoolVector2Array( -39.3199, 5.68182, -39.3199, 29.8897, 38.0658, 30.2865, 38.0658, 5.28497, 30.1288, -0.667786, 23.3823, -0.667786, 22.9855, -22.0977, 14.2548, -28.8441, -14.7152, -29.241, -24.2396, -22.8914, -23.8428, -0.270935, -30.1924, -1.06464 )
+
+[node name="StaticBody2D5" type="StaticBody2D" parent="."]
+position = Vector2( 1750, 100 )
+scale = Vector2( 1, 0.9 )
+
+[node name="Sprite" type="Sprite" parent="StaticBody2D5"]
+scale = Vector2( 0.25, 0.25 )
+texture = ExtResource( 8 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D5"]
+polygon = PoolVector2Array( -39.3199, 5.68182, -39.3199, 29.8897, 38.0658, 30.2865, 38.0658, 5.28497, 30.1288, -0.667786, 23.3823, -0.667786, 22.9855, -22.0977, 14.2548, -28.8441, -14.7152, -29.241, -24.2396, -22.8914, -23.8428, -0.270935, -30.1924, -1.06464 )
+[connection signal="cooldown_ended" from="Character" to="CanvasLayer/Gui" method="_on_Character_cooldown_ended"]
+[connection signal="cooldown_started" from="Character" to="CanvasLayer/Gui" method="_on_Character_cooldown_started"]
+[connection signal="dead" from="Character" to="." method="_on_Character_dead"]
+[connection signal="lives_changed" from="Character" to="CanvasLayer/Gui" method="_on_Character_lives_changed"]
