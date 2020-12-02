@@ -56,6 +56,14 @@ throw={
  ]
 }
 
+[layer_names]
+
+2d_physics/layer_1="character"
+2d_physics/layer_2="objects"
+2d_physics/layer_3="objects_from_character"
+2d_physics/layer_4="objects_from_enemies"
+2d_physics/layer_5="enemies"
+
 [rendering]
 
 environment/default_environment="res://default_env.tres"
