@@ -1,9 +1,12 @@
 [gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://enemy.gd" type="Script" id=1]
-[ext_resource path="res://assets/enemies/slimeBlue_blue.png" type="Texture" id=2]
-[ext_resource path="res://assets/enemies/slimeBlue.png" type="Texture" id=3]
-[ext_resource path="res://assets/enemies/slimeBlue_squashed.png" type="Texture" id=4]
+[ext_resource path="res://Enemies/enemy.gd" type="Script" id=1]
+[ext_resource path="res://Enemies/sprites/slimeBlue_blue.png" type="Texture" id=2]
+[ext_resource path="res://Enemies/sprites/slimeBlue.png" type="Texture" id=3]
+[ext_resource path="res://Enemies/sprites/slimeBlue_squashed.png" type="Texture" id=4]
+
+
+
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
