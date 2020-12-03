@@ -23,3 +23,4 @@ shape = SubResource( 1 )
 
 [node name="enemy" parent="Enemies" instance=ExtResource( 2 )]
 position = Vector2( 143, 133 )
+direction = 1
