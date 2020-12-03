@@ -1,7 +1,11 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://enemy.tscn" type="PackedScene" id=2]
+[ext_resource path="res://backgorund sprites/cyberpunk-street-files/PNG/layers/far-buildings.png" type="Texture" id=3]
+[ext_resource path="res://backgorund sprites/city_background_clean.png" type="Texture" id=4]
+[ext_resource path="res://backgorund sprites/cyberpunk-street-files/PNG/layers/back-buildings.png" type="Texture" id=5]
+[ext_resource path="res://backgorund sprites/road&lamps.png" type="Texture" id=6]
 
 [sub_resource type="SegmentShape2D" id=1]
 a = Vector2( -100, 250 )
@@ -16,10 +20,43 @@ collision_mask = 26
 position = Vector2( 463.791, 355.573 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2( -504.304, -111.729 )
+position = Vector2( -918.025, -306.817 )
 shape = SubResource( 1 )
 
 [node name="Enemies" type="Node2D" parent="."]
 
 [node name="enemy" parent="Enemies" instance=ExtResource( 2 )]
 position = Vector2( 143, 133 )
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2( 798.72, 0 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2( -113.871, 0 )
+scale = Vector2( 3.12, 3.12 )
+texture = ExtResource( 3 )
+
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2( 798.72, 0 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer3"]
+position = Vector2( -112.373, 5.99323 )
+scale = Vector2( 3.12, 3.12 )
+texture = ExtResource( 5 )
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
+position = Vector2( 2, 0 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer2"]
+position = Vector2( 3579.46, -206.766 )
+texture = ExtResource( 4 )
+
+[node name="ParallaxLayer4" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2( 576, 0 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer4"]
+position = Vector2( -223.248, 137.844 )
+scale = Vector2( 0.3, 0.3 )
+texture = ExtResource( 6 )

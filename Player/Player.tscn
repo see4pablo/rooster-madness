@@ -35,6 +35,8 @@ cast_to = Vector2( 0, 10 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
+limit_top = -300
+limit_bottom = 300
 drag_margin_h_enabled = true
 drag_margin_v_enabled = true
 smoothing_enabled = true
