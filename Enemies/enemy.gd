@@ -12,17 +12,17 @@ export var search_rad = 300
 func _ready():
 	if direction == 1:
 		$AnimatedSprite.flip_h = true
-	$heroe_checker_left.cast_to.x = search_rad * -1
-	$heroe_checker_right.cast_to.x = search_rad
+	$player_checker_left.cast_to.x = search_rad * -1
+	$player_checker_right.cast_to.x = search_rad
 	
 
 func player_detected():
-	return $heroe_checker_left.is_colliding() or $heroe_checker_right.is_colliding()
+	return $player_checker_left.is_colliding() or $player_checker_right.is_colliding()
 
 func _physics_process(delta):
 	
 	if player_detected():
-		if $heroe_checker_left.is_colliding():
+		if $player_checker_left.is_colliding():
 			direction = LEFT
 			$AnimatedSprite.flip_h = false
 		else:
