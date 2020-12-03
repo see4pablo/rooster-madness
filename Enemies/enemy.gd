@@ -16,12 +16,12 @@ func _ready():
 	$heroe_checker_right.cast_to.x = search_rad
 	
 
-func character_detected():
+func player_detected():
 	return $heroe_checker_left.is_colliding() or $heroe_checker_right.is_colliding()
 
 func _physics_process(delta):
 	
-	if character_detected():
+	if player_detected():
 		if $heroe_checker_left.is_colliding():
 			direction = LEFT
 			$AnimatedSprite.flip_h = false
