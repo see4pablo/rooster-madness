@@ -23,15 +23,6 @@ collision_mask = 31
 position = Vector2( 8128.17, 327.145 )
 shape = SubResource( 1 )
 
-[node name="Enemies" type="Node2D" parent="."]
-
-[node name="enemy" parent="Enemies" instance=ExtResource( 2 )]
-position = Vector2( 1250.48, 565.647 )
-direction = 1
-
-[node name="Player" parent="." instance=ExtResource( 1 )]
-position = Vector2( 298.975, 539.56 )
-
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
 [node name="Far_buldings" type="ParallaxLayer" parent="ParallaxBackground"]
@@ -91,15 +82,15 @@ cell_size = Vector2( 16, 16 )
 format = 1
 tile_data = PoolIntArray( 65535, 0, 0, 131071, 0, 0, 196607, 0, 0, 262143, 0, 0, 327679, 0, 0, 393215, 0, 0, 327691, 0, 0, 327692, 5, 0, 327693, 5, 0, 327694, 5, 0, 327695, 5, 0, 327696, 5, 0, 327697, 5, 0, 327698, 5, 0, 327699, 5, 0, 327700, 5, 0, 327701, 5, 0, 458751, 0, 0, 393226, 0, 0, 393227, 0, 0, 393228, 4, 0, 393229, 4, 0, 393230, 4, 0, 393231, 4, 0, 393232, 4, 0, 393253, 3, 0, 524287, 0, 0, 458761, 0, 0, 458762, 0, 0, 458763, 0, 0, 458764, 4, 0, 458765, 4, 0, 458766, 4, 0, 458767, 4, 0, 458768, 4, 0, 458789, 3, 0, 589823, 0, 0, 524296, 0, 0, 524297, 0, 0, 524298, 0, 0, 524299, 0, 0, 524300, 4, 0, 524301, 4, 0, 524302, 4, 0, 524303, 4, 0, 524304, 4, 0, 524325, 3, 0 )
 
+[node name="Enemies" type="Node2D" parent="."]
 
-
-[node name="enemy2" parent="Enemies" instance=ExtResource( 2 )]
-position = Vector2( 300, 133 )
+[node name="enemy" parent="Enemies" instance=ExtResource( 2 )]
+position = Vector2( 1250.48, 565.647 )
 direction = 1
 
 [node name="enemy2" parent="Enemies" instance=ExtResource( 2 )]
-position = Vector2( 300, 133 )
+position = Vector2( 866.134, 226.998 )
 direction = 1
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
->>>>>>> b9b32e38bd9cfea81368923b786137484ba3386e
+position = Vector2( 240.547, 535.92 )
