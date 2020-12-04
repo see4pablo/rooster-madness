@@ -114,9 +114,9 @@ func _exit_state(old_state, new_state):
 	pass
 
 	
-func got_attacked(enemy):
+func get_attacked(enemy):
 	if state == states.dash:
-		enemy.get_hit()
+		enemy.get_hit(Globals.PLAYER_DASH_DAMAGE)
 	elif state != states.damaged:
 		set_state(states.damaged)
 		parent._receive_hit()
