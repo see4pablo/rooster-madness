@@ -46,11 +46,13 @@ func _physics_process(delta):
 		$AnimatedSprite.flip_h = not $AnimatedSprite.flip_h
 	
 	velocity.y += gravity 
-	
 	velocity.x = move_speed*direction
-	
 	velocity = move_and_slide(velocity, Vector2.UP)
 
+
+func _jump():
+	pass
+	
 
 func get_hit(damage):
 	if actual_state == getting_hit:
@@ -58,6 +60,7 @@ func get_hit(damage):
 	$Receive_hit.start(0.5)
 	life -= damage
 	actual_state = getting_hit
+	_jump()
 	if life <= 0:
 		# ToDo: change sprite to "die"
 		$AnimatedSprite.play("die")
@@ -68,7 +71,6 @@ func get_hit(damage):
 		$hit_checker.set_collision_mask_bit(0, false)
 		$Timer.start()
 	else:
-		# ToDo: change sprite to "getHit"
 		$AnimatedSprite.play("getHit")
 
 
