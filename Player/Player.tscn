@@ -141,20 +141,6 @@ cast_to = Vector2( 0, 10 )
 position = Vector2( -32, 33.01 )
 cast_to = Vector2( 0, 10 )
 
-[node name="Camera2D" type="Camera2D" parent="."]
-current = true
-limit_top = -300
-limit_bottom = 300
-drag_margin_h_enabled = true
-drag_margin_v_enabled = true
-smoothing_enabled = true
-smoothing_speed = 7.0
-drag_margin_left = 0.5
-drag_margin_top = 0.5
-drag_margin_right = 0.5
-drag_margin_bottom = 0.5
-editor_draw_drag_margin = true
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/dash = SubResource( 2 )
 anims/fall = SubResource( 3 )
@@ -184,3 +170,9 @@ align = 1
 [node name="Interface" type="CanvasLayer" parent="."]
 
 [node name="GUI" parent="Interface" instance=ExtResource( 9 )]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+limit_left = 0
+limit_top = 0
+limit_bottom = 599
