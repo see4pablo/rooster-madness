@@ -63,7 +63,7 @@ func _get_hit(damage):
 		$AnimatedSprite.play("squashed")
 
 
-func _on_top_checker_body_entered(body):
+func _on_hit_checker_body_entered(body):
 	# ToDo: change "_get_h_weight" func
 	if body.is_class("KinematicBody2D") and body.has_method("_get_h_weight"):
 		_get_hit(200)
@@ -74,3 +74,4 @@ func _on_top_checker_body_entered(body):
 
 func _on_Timer_timeout():
 	queue_free() # enemy die
+

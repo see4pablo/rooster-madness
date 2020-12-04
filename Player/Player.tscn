@@ -47,7 +47,7 @@ tracks/0/keys = {
 "values": [ ExtResource( 6 ) ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=4]
 resource_name = "glide"
 length = 0.4
 loop = true
@@ -64,7 +64,7 @@ tracks/0/keys = {
 "values": [ ExtResource( 8 ), ExtResource( 5 ) ]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=5]
 length = 0.2
 loop = true
 tracks/0/type = "value"
@@ -80,7 +80,7 @@ tracks/0/keys = {
 "values": [ ExtResource( 6 ) ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=6]
 length = 0.2
 loop = true
 tracks/0/type = "value"
@@ -158,9 +158,9 @@ editor_draw_drag_margin = true
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/dash = SubResource( 2 )
 anims/fall = SubResource( 3 )
-anims/glide = SubResource( 6 )
-anims/idle = SubResource( 4 )
-anims/jump = SubResource( 5 )
+anims/glide = SubResource( 4 )
+anims/idle = SubResource( 5 )
+anims/jump = SubResource( 6 )
 anims/walk = SubResource( 7 )
 
 [node name="StateMachine" type="Node" parent="."]
