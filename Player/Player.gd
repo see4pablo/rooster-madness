@@ -33,6 +33,8 @@ onready var anim_player = $AnimationPlayer
 onready var state_info = $Player_UI/State_Info
 onready var user_gui = $Interface/GUI
 onready var playerFSM = $StateMachine
+onready var dash_cooldown = $DashCooldown
+onready var damage_cooldown = $DamageCooldown
 
 func _ready():
 	gravity = 2 * max_jump_height / pow(jump_duration, 2)
@@ -79,13 +81,28 @@ func _check_is_grounded():
 	
 	#if loop was completed then raycast was not detected	
 	return false
+	
+func _dash():
+	dash_cooldown.start(2)
+	dash_origin = position
+	mouse_target = get_global_mouse_position()
+	velocity = (mouse_target - dash_origin).normalized() * dash_speed
+	user_gui.dash_on_cooldown()
 
 #return if is death or not
-func receive_hit():
+func _receive_hit():
 	lives -= 1
 	user_gui.update_lives(lives)
-	if lives == 0:
-		return true
+	damage_cooldown.start(1)
+
+func _is_dead():
+	return lives == 0
+	
+func _can_dash():
+	return dash_cooldown.is_stopped()
+	
+func _dash_available():
+	user_gui.dash_available()
 		
 func get_attacked(enemy):
 	playerFSM.get_attacked(enemy)
