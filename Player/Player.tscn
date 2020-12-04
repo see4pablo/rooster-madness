@@ -202,6 +202,7 @@ current = true
 limit_left = 0
 limit_top = 0
 limit_bottom = 599
+
 [node name="DamageCooldown" type="Timer" parent="."]
 one_shot = true
 

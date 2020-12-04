@@ -96,6 +96,10 @@ func _receive_hit():
 	lives -= 1
 	user_gui.update_lives(lives)
 	damage_cooldown.start(1)
+	
+func _had_killed():
+	dash_cooldown.stop()
+	
 
 func _is_dead():
 	return lives == 0

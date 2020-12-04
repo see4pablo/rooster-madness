@@ -118,7 +118,13 @@ func _exit_state(old_state, new_state):
 	
 func get_attacked(enemy):
 	if state == states.dash:
-		enemy.get_hit(Globals.PLAYER_DASH_DAMAGE)
+		var killed = enemy.get_hit(Globals.PLAYER_DASH_DAMAGE)
+		if killed:
+			parent._had_killed()
+		#vertical jump now
+		set_state(states.idle)
+		parent.velocity.y += parent.max_jump_velocity
+		
 		
 		
 	elif state != states.damaged:
