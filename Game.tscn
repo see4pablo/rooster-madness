@@ -8,17 +8,10 @@
 [ext_resource path="res://backgorund sprites/road&lamps.png" type="Texture" id=6]
 
 [sub_resource type="SegmentShape2D" id=1]
-a = Vector2( -100, 250 )
-b = Vector2( 1000, 250 )
+a = Vector2( -10000, 0 )
+b = Vector2( 10000, 0 )
 
 [node name="Game" type="Node2D"]
-
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
-position = Vector2( 463.791, 355.573 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2( -918.025, -306.817 )
-shape = SubResource( 1 )
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
@@ -49,9 +42,15 @@ texture = ExtResource( 4 )
 motion_mirroring = Vector2( 576, 0 )
 
 [node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer4"]
-position = Vector2( -223.248, 137.844 )
+position = Vector2( -222.189, 137.844 )
 scale = Vector2( 0.3, 0.3 )
 texture = ExtResource( 6 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2( 0, 270 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource( 1 )
 
 [node name="Enemies" type="Node2D" parent="."]
 
