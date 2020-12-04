@@ -142,7 +142,7 @@ func get_attacked(enemy):
 		
 		#check death state
 		if(parent._is_dead()):
-			set_state(states.death)
+			set_state(states.dead)
 		
 
 func _on_DamageCooldown_timeout():
