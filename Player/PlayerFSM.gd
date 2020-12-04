@@ -118,8 +118,18 @@ func got_attacked(enemy):
 	if state == states.dash:
 		enemy.get_hit()
 	elif state != states.damaged:
+		
 		set_state(states.damaged)
 		parent._receive_hit()
+		
+		#bounce to the left
+		if(enemy.position.x < parent.position.x):
+			parent.velocity = Vector2(-1,1).normalized() * parent.bounce_speed
+		#bounce to the right
+		else:
+			parent.velocity = Vector2(1,1).normalized() * parent.bounce_speed
+		
+		
 		#check death state
 		if(parent._is_dead()):
 			set_state(states.death)

@@ -26,6 +26,8 @@ var dash_origin = Vector2()
 var mouse_target = Vector2()
 var dash_distance = 5 * Globals.UNIT_SIZE
 
+var bounce_speed = 2 * move_speed
+
 var lives = 3
 
 onready var raycasts = $Raycasts
