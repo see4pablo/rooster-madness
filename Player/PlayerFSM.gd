@@ -7,6 +7,8 @@ func _ready():
 	add_state("fall")
 	add_state("dash")
 	add_state("glide")
+	add_state("damaged")
+	add_state("dead")
 	call_deferred("set_state", states.idle)
 	
 func _input(event):
@@ -105,3 +107,10 @@ func _enter_state(new_state, old_state):
 
 func _exit_state(old_state, new_state):
 	pass
+	
+func got_attacked(enemy):
+	if state == states.dash:
+		enemy.get_hit()
+	else:
+		parent.receive_hit()
+		

@@ -12,6 +12,7 @@ var min_jump_velocity
 var facing_right = true
 var glide_cond = false
 var dash_cond = false
+var hit_cond = false
 
 var max_jump_height = 2.25 * Globals.UNIT_SIZE
 var min_jump_height = 0.8 * Globals.UNIT_SIZE
@@ -25,9 +26,13 @@ var dash_origin = Vector2()
 var mouse_target = Vector2()
 var dash_distance = 5 * Globals.UNIT_SIZE
 
+var lives = 3
+
 onready var raycasts = $Raycasts
 onready var anim_player = $AnimationPlayer
 onready var state_info = $Player_UI/State_Info
+onready var user_gui = $Interface/GUI
+onready var playerFSM = $StateMachine
 
 func _ready():
 	gravity = 2 * max_jump_height / pow(jump_duration, 2)
@@ -36,6 +41,7 @@ func _ready():
 	min_jump_velocity = -sqrt(2 * gravity * min_jump_height)
 	
 	Globals.player = self
+	user_gui.update_lives(lives)
 	
 func _apply_gravity(delta):
 	if glide_cond:
@@ -73,4 +79,17 @@ func _check_is_grounded():
 	
 	#if loop was completed then raycast was not detected	
 	return false
+
+#return if is death or not
+func receive_hit():
+	lives -= 1
+	user_gui.update_lives(lives)
+	if lives == 0:
+		return true
+		
+func get_attacked(enemy):
+	playerFSM.get_attacked(enemy)
+	
+#
+	
 
