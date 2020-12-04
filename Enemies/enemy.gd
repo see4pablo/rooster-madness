@@ -47,7 +47,7 @@ func _physics_process(delta):
 	velocity = move_and_slide(velocity, Vector2.UP)
 
 
-func _get_hit(damage):
+func get_hit(damage):
 	life -= damage
 	if life <= 0:
 		# ToDo: change sprite to "die"
@@ -63,14 +63,15 @@ func _get_hit(damage):
 		$AnimatedSprite.play("squashed")
 
 
-func _on_top_checker_body_entered(body):
+func _on_hit_checker_body_entered(body):
 	# ToDo: change "_get_h_weight" func
-	if body.is_class("KinematicBody2D") and body.has_method("_get_h_weight"):
-		_get_hit(200)
-		# ToDo: call player's func 
+	if body.is_class("KinematicBody2D") and body.has_method("got_attack"):
+		body.get_attack(self)
+					
 	elif body.is_class("StaticBody2D"):
-		_get_hit(100)
+		get_hit(100)
 
 
 func _on_Timer_timeout():
 	queue_free() # enemy die
+

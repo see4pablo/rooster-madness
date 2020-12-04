@@ -16,19 +16,14 @@ b = Vector2( 10000, 0 )
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
-motion_mirroring = Vector2( 1597.44, 0 )
+motion_mirroring = Vector2( 798.72, 0 )
 
 [node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
-scale = Vector2( 3.12, 3.12 )
-texture = ExtResource( 3 )
-
-[node name="Sprite2" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
-position = Vector2( 798.72, 0 )
+position = Vector2( -113.871, 0 )
 scale = Vector2( 3.12, 3.12 )
 texture = ExtResource( 3 )
 
 [node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground"]
-visible = false
 motion_mirroring = Vector2( 798.72, 0 )
 
 [node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer3"]
@@ -37,7 +32,6 @@ scale = Vector2( 3.12, 3.12 )
 texture = ExtResource( 5 )
 
 [node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
-visible = false
 position = Vector2( 2, 0 )
 
 [node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer2"]
@@ -45,7 +39,6 @@ position = Vector2( 3579.46, -206.766 )
 texture = ExtResource( 4 )
 
 [node name="ParallaxLayer4" type="ParallaxLayer" parent="ParallaxBackground"]
-visible = false
 motion_mirroring = Vector2( 576, 0 )
 
 [node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer4"]
@@ -56,8 +49,6 @@ region_rect = Rect2( 0, 0, 10000, 10000 )
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2( 0, 270 )
-collision_layer = 0
-collision_mask = 31
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 shape = SubResource( 1 )
