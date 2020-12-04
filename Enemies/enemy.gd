@@ -5,6 +5,11 @@ var life = 200
 var character_speed = 1
 export var search_rad = 300
 #------------------------------------
+# States
+var actual_state = idle
+var idle = 1
+var getting_hit = 2
+#------------------------------------
 
 var LEFT = -1
 var RIGHT = 1
@@ -48,10 +53,14 @@ func _physics_process(delta):
 
 
 func get_hit(damage):
+	if actual_state == getting_hit:
+		return
+	$Receive_hit.start(0.5)
 	life -= damage
+	actual_state = getting_hit
 	if life <= 0:
 		# ToDo: change sprite to "die"
-		$AnimatedSprite.play("squashed")
+		$AnimatedSprite.play("die")
 		move_speed = 0
 		set_collision_layer_bit(5, false)
 		set_collision_mask_bit(0, false)
@@ -60,13 +69,12 @@ func get_hit(damage):
 		$Timer.start()
 	else:
 		# ToDo: change sprite to "getHit"
-		$AnimatedSprite.play("squashed")
+		$AnimatedSprite.play("getHit")
 
 
 func _on_hit_checker_body_entered(body):
-	# ToDo: change "_get_h_weight" func
-	if body.is_class("KinematicBody2D") and body.has_method("got_attack"):
-		body.get_attack(self)
+	if body.is_class("KinematicBody2D") and body.has_method("get_attacked"):
+		body.get_attacked(self)
 					
 	elif body.is_class("StaticBody2D"):
 		get_hit(100)
@@ -75,3 +83,6 @@ func _on_hit_checker_body_entered(body):
 func _on_Timer_timeout():
 	queue_free() # enemy die
 
+
+func _on_Receive_hit_timeout():
+	actual_state = idle
