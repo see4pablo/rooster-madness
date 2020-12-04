@@ -1,12 +1,117 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Player/sprites/animation/1.-derecha.png" type="Texture" id=1]
 [ext_resource path="res://Player/PlayerFSM.gd" type="Script" id=2]
 [ext_resource path="res://Player/Player.gd" type="Script" id=3]
+[ext_resource path="res://Player/sprites/animation/2.-Izquierda.png" type="Texture" id=4]
+[ext_resource path="res://Player/sprites/animation/8.-Volar1.png" type="Texture" id=5]
+[ext_resource path="res://Player/sprites/animation/3.- Centro.png" type="Texture" id=6]
+[ext_resource path="res://Player/sprites/animation/11.-Dash.png" type="Texture" id=7]
+[ext_resource path="res://Player/sprites/animation/7.-Volar1.png" type="Texture" id=8]
+[ext_resource path="res://Interface/GUI.tscn" type="PackedScene" id=9]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 29.3169
 height = 6.36333
+
+[sub_resource type="Animation" id=2]
+resource_name = "dash"
+length = 0.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Body/Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 7 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "fall"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("Body/Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 6 ) ]
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "glide"
+length = 0.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Body/Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ ExtResource( 8 ), ExtResource( 5 ) ]
+}
+
+[sub_resource type="Animation" id=4]
+length = 0.2
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Body/Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 6 ) ]
+}
+
+[sub_resource type="Animation" id=5]
+length = 0.2
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Body/Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 6 ) ]
+}
+
+[sub_resource type="Animation" id=7]
+length = 0.6
+loop = true
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Body/Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.35, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ ExtResource( 1 ), ExtResource( 6 ), ExtResource( 4 ), ExtResource( 6 ) ]
+}
 
 [node name="Player" type="KinematicBody2D"]
 collision_mask = 58
@@ -18,7 +123,9 @@ shape = SubResource( 1 )
 [node name="Body" type="Node2D" parent="."]
 
 [node name="Sprite" type="Sprite" parent="Body"]
-texture = ExtResource( 1 )
+position = Vector2( 1, 1 )
+texture = ExtResource( 8 )
+offset = Vector2( 1.91e-25, 0 )
 
 [node name="Raycasts" type="Node2D" parent="."]
 
@@ -49,6 +156,31 @@ drag_margin_bottom = 0.5
 editor_draw_drag_margin = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/dash = SubResource( 2 )
+anims/fall = SubResource( 3 )
+anims/glide = SubResource( 6 )
+anims/idle = SubResource( 4 )
+anims/jump = SubResource( 5 )
+anims/walk = SubResource( 7 )
 
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource( 2 )
+
+[node name="Player_UI" type="VBoxContainer" parent="."]
+margin_left = -30.0
+margin_top = -53.0
+margin_right = 30.0
+margin_bottom = -34.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="State_Info" type="Label" parent="Player_UI"]
+margin_right = 60.0
+margin_bottom = 14.0
+text = "idle"
+align = 1
+
+[node name="Interface" type="CanvasLayer" parent="."]
+
+[node name="GUI" parent="Interface" instance=ExtResource( 9 )]
