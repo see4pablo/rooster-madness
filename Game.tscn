@@ -97,5 +97,9 @@ tile_data = PoolIntArray( 65535, 0, 0, 131071, 0, 0, 196607, 0, 0, 262143, 0, 0,
 position = Vector2( 300, 133 )
 direction = 1
 
+[node name="enemy2" parent="Enemies" instance=ExtResource( 2 )]
+position = Vector2( 300, 133 )
+direction = 1
+
 [node name="Player" parent="." instance=ExtResource( 1 )]
 >>>>>>> b9b32e38bd9cfea81368923b786137484ba3386e

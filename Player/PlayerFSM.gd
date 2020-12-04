@@ -7,6 +7,8 @@ func _ready():
 	add_state("fall")
 	add_state("dash")
 	add_state("glide")
+	add_state("damaged")
+	add_state("dead")
 	call_deferred("set_state", states.idle)
 	
 func _input(event):
@@ -19,11 +21,9 @@ func _input(event):
 		parent.glide_cond = false
 	
 	if state != states.dash:
-		if event.is_action_pressed("dash"):
+		if event.is_action_pressed("dash") and parent._can_dash():
 			set_state(states.dash)
-			parent.dash_origin = parent.position
-			parent.mouse_target = parent.get_global_mouse_position()
-			parent.velocity = (parent.mouse_target - parent.dash_origin).normalized() * parent.dash_speed
+			parent._dash()
 		
 			
 func _state_logic(delta):
@@ -31,6 +31,7 @@ func _state_logic(delta):
 		parent._handle_move_input()
 		parent._apply_gravity(delta)
 	parent._apply_movement(delta)
+	
 	
 func _get_transition(delta):
 	match state:
@@ -101,7 +102,44 @@ func _enter_state(new_state, old_state):
 			parent.anim_player.play("glide")
 		states.dash:
 			parent.state_info.text = "dash"
-			parent.anime_player.play("dash")
+			parent.anim_player.play("dash")
+		states.damaged:
+			parent.state_info.text = "damaged"
+			parent.anim_player.play("damaged")
+		states.death:
+			parent.state_info.text = "dead"
+			parent.anim_player.play("dead")
 
 func _exit_state(old_state, new_state):
 	pass
+
+	
+func get_attacked(enemy):
+	if state == states.dash:
+		enemy.get_hit(Globals.PLAYER_DASH_DAMAGE)
+	elif state != states.damaged:
+		
+		set_state(states.damaged)
+		parent._receive_hit()
+		
+		#bounce to the left
+		if(enemy.position.x < parent.position.x):
+			parent.velocity = Vector2(-1,1).normalized() * parent.bounce_speed
+		#bounce to the right
+		else:
+			parent.velocity = Vector2(1,1).normalized() * parent.bounce_speed
+		
+		
+		#check death state
+		if(parent._is_dead()):
+			set_state(states.death)
+		
+
+func _on_DamageCooldown_timeout():
+	set_state(states.idle)
+	
+
+
+func _on_DashCooldown_timeout():
+	set_state(states.idle)
+	parent._dash_available()

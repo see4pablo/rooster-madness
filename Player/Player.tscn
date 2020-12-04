@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Player/sprites/animation/1.-derecha.png" type="Texture" id=1]
 [ext_resource path="res://Player/PlayerFSM.gd" type="Script" id=2]
@@ -15,7 +15,34 @@ radius = 29.3169
 height = 6.36333
 
 [sub_resource type="Animation" id=2]
-resource_name = "dash"
+resource_name = "damaged"
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Body/Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 6 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Body/Sprite:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.55, 0.7, 0.8, 0.85, 0.9, 0.95 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ true, false, true, false, true, false, true, false, true ]
+}
+
+[sub_resource type="Animation" id=3]
 length = 0.4
 loop = true
 tracks/0/type = "value"
@@ -31,8 +58,7 @@ tracks/0/keys = {
 "values": [ ExtResource( 7 ) ]
 }
 
-[sub_resource type="Animation" id=3]
-resource_name = "fall"
+[sub_resource type="Animation" id=4]
 length = 0.2
 tracks/0/type = "value"
 tracks/0/path = NodePath("Body/Sprite:texture")
@@ -47,8 +73,7 @@ tracks/0/keys = {
 "values": [ ExtResource( 6 ) ]
 }
 
-[sub_resource type="Animation" id=4]
-resource_name = "glide"
+[sub_resource type="Animation" id=5]
 length = 0.4
 loop = true
 tracks/0/type = "value"
@@ -62,22 +87,6 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
 "values": [ ExtResource( 8 ), ExtResource( 5 ) ]
-}
-
-[sub_resource type="Animation" id=5]
-length = 0.2
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath("Body/Sprite:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ ExtResource( 6 ) ]
 }
 
 [sub_resource type="Animation" id=6]
@@ -97,6 +106,22 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id=7]
+length = 0.2
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Body/Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 6 ) ]
+}
+
+[sub_resource type="Animation" id=8]
 length = 0.6
 loop = true
 step = 0.05
@@ -124,7 +149,7 @@ shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="Body"]
 position = Vector2( 1, 1 )
-texture = ExtResource( 8 )
+texture = ExtResource( 6 )
 offset = Vector2( 1.91e-25, 0 )
 
 [node name="Raycasts" type="Node2D" parent="."]
@@ -142,12 +167,13 @@ position = Vector2( -32, 33.01 )
 cast_to = Vector2( 0, 10 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/dash = SubResource( 2 )
-anims/fall = SubResource( 3 )
-anims/glide = SubResource( 4 )
-anims/idle = SubResource( 5 )
-anims/jump = SubResource( 6 )
-anims/walk = SubResource( 7 )
+anims/damaged = SubResource( 2 )
+anims/dash = SubResource( 3 )
+anims/fall = SubResource( 4 )
+anims/glide = SubResource( 5 )
+anims/idle = SubResource( 6 )
+anims/jump = SubResource( 7 )
+anims/walk = SubResource( 8 )
 
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource( 2 )
@@ -176,3 +202,11 @@ current = true
 limit_left = 0
 limit_top = 0
 limit_bottom = 599
+[node name="DamageCooldown" type="Timer" parent="."]
+one_shot = true
+
+[node name="DashCooldown" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+[connection signal="timeout" from="DamageCooldown" to="StateMachine" method="_on_DamageCooldown_timeout"]
+[connection signal="timeout" from="DashCooldown" to="StateMachine" method="_on_DashCooldown_timeout"]
