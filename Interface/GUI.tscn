@@ -15,8 +15,8 @@ __meta__ = {
 [node name="DashIcon" type="NinePatchRect" parent="."]
 anchor_top = 1.0
 anchor_bottom = 1.0
-margin_top = -225.0
-margin_right = 203.0
+margin_top = -161.0
+margin_right = 101.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
