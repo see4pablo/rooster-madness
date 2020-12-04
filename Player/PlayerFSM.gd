@@ -20,16 +20,18 @@ func _input(event):
 	if event.is_action_released("jump"):
 		parent.glide_cond = false
 	
-	if state != states.dash:
+	if not [states.dash, states.damaged].has(state):
 		if event.is_action_pressed("dash") and parent._can_dash():
 			set_state(states.dash)
 			parent._dash()
 		
 			
 func _state_logic(delta):
-	if state != states.dash:
+	if not [states.dash, states.damaged].has(state):
 		parent._handle_move_input()
+	if state != states.dash:
 		parent._apply_gravity(delta)
+		
 	parent._apply_movement(delta)
 	
 	
@@ -117,6 +119,8 @@ func _exit_state(old_state, new_state):
 func get_attacked(enemy):
 	if state == states.dash:
 		enemy.get_hit(Globals.PLAYER_DASH_DAMAGE)
+		
+		
 	elif state != states.damaged:
 		
 		set_state(states.damaged)
