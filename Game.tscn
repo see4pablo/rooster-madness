@@ -28,7 +28,6 @@ scale = Vector2( 3.12, 3.12 )
 texture = ExtResource( 3 )
 
 [node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground"]
-visible = false
 motion_mirroring = Vector2( 798.72, 0 )
 
 [node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer3"]
@@ -37,7 +36,6 @@ scale = Vector2( 3.12, 3.12 )
 texture = ExtResource( 5 )
 
 [node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
-visible = false
 position = Vector2( 2, 0 )
 
 [node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer2"]
@@ -45,7 +43,6 @@ position = Vector2( 3579.46, -206.766 )
 texture = ExtResource( 4 )
 
 [node name="ParallaxLayer4" type="ParallaxLayer" parent="ParallaxBackground"]
-visible = false
 motion_mirroring = Vector2( 576, 0 )
 
 [node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer4"]
@@ -66,6 +63,10 @@ shape = SubResource( 1 )
 
 [node name="enemy" parent="Enemies" instance=ExtResource( 2 )]
 position = Vector2( 143, 133 )
+direction = 1
+
+[node name="enemy2" parent="Enemies" instance=ExtResource( 2 )]
+position = Vector2( 300, 133 )
 direction = 1
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
