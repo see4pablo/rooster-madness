@@ -31,7 +31,7 @@ func _state_logic(delta):
 		parent._handle_move_input()
 		parent._apply_gravity(delta)
 	parent._apply_movement(delta)
-	print(parent._can_dash())
+	
 	
 func _get_transition(delta):
 	match state:
