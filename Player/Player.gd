@@ -98,8 +98,8 @@ func _receive_hit():
 	damage_cooldown.start(1)
 	
 func _had_killed():
-	print("MATEE")
 	dash_cooldown.stop()
+	_dash_available()
 	
 
 func _is_dead():

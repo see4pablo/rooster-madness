@@ -108,7 +108,7 @@ func _enter_state(new_state, old_state):
 		states.damaged:
 			parent.state_info.text = "damaged"
 			parent.anim_player.play("damaged")
-		states.death:
+		states.dead:
 			parent.state_info.text = "dead"
 			parent.anim_player.play("dead")
 
