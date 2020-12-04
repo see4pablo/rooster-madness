@@ -6,10 +6,9 @@ var character_speed = 1
 export var search_rad = 300
 #------------------------------------
 # States
-var actual_state = idle
-var idle = 1
-var getting_hit = 2
-var jumping = 3
+var idle = true
+var getting_hit = false
+var jumping = false
 #------------------------------------
 
 var LEFT = -1
@@ -34,7 +33,10 @@ func player_detected():
 
 
 func _physics_process(delta):
-	
+	print("idle", idle)
+	print("jumping", jumping)
+	print("getting_hit", getting_hit)
+		
 	if player_detected():
 		if $player_checker_left.is_colliding():
 			direction = LEFT
@@ -47,26 +49,35 @@ func _physics_process(delta):
 		$AnimatedSprite.flip_h = not $AnimatedSprite.flip_h
 	
 	velocity.y += gravity 
-	if actual_state != jumping:
+	
+	if not jumping:
 		velocity.x = move_speed*direction
 		velocity = move_and_slide(velocity, Vector2.UP)
-	elif is_on_floor():
-		actual_state = idle
+		if not getting_hit:
+			idle = true
+	else:
+		velocity.y += gravity * 5
+		if is_on_floor() or $floor_checker.is_colliding():
+			jumping = false
+			velocity.y = 0
+			velocity = move_and_slide(velocity, Vector2.UP)
+			$AnimatedSprite.play("idle")
 
 
 func _jump():
-	actual_state = jumping
+	jumping = true
 	velocity.x = move_speed*(direction*-1)*50
 	velocity.y = gravity*(-1)*60
 	velocity = move_and_slide(velocity)
 	
 
 func get_hit(damage):
-	if actual_state == getting_hit:
+	if getting_hit:
 		return false
 	$Receive_hit.start(0.5)
 	life -= damage
-	actual_state = getting_hit
+	getting_hit = true
+	idle = false
 	if life <= 0:
 		$AnimatedSprite.play("die")
 		move_speed = 0
@@ -83,7 +94,7 @@ func get_hit(damage):
 
 
 func _on_hit_checker_body_entered(body):
-	if actual_state == jumping:
+	if jumping:
 		return
 	if body.is_class("KinematicBody2D") and body.has_method("get_attacked"):
 		body.get_attacked(self)
@@ -97,4 +108,4 @@ func _on_Timer_timeout():
 
 
 func _on_Receive_hit_timeout():
-	actual_state = idle
+	getting_hit = false
