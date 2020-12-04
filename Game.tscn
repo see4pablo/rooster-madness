@@ -13,21 +13,12 @@ b = Vector2( 1000, 250 )
 
 [node name="Game" type="Node2D"]
 
-[node name="Player" parent="." instance=ExtResource( 1 )]
-collision_mask = 26
-
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2( 463.791, 355.573 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2( -918.025, -306.817 )
 shape = SubResource( 1 )
-
-[node name="Enemies" type="Node2D" parent="."]
-
-[node name="enemy" parent="Enemies" instance=ExtResource( 2 )]
-position = Vector2( 143, 133 )
-direction = 1
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
@@ -61,3 +52,12 @@ motion_mirroring = Vector2( 576, 0 )
 position = Vector2( -223.248, 137.844 )
 scale = Vector2( 0.3, 0.3 )
 texture = ExtResource( 6 )
+
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="enemy" parent="Enemies" instance=ExtResource( 2 )]
+position = Vector2( 143, 133 )
+direction = 1
+
+[node name="Player" parent="." instance=ExtResource( 1 )]
+collision_mask = 26
