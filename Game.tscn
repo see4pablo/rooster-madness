@@ -45,6 +45,7 @@ motion_mirroring = Vector2( 576, 0 )
 position = Vector2( -222.189, 137.844 )
 scale = Vector2( 0.3, 0.3 )
 texture = ExtResource( 6 )
+region_rect = Rect2( 0, 0, 10000, 10000 )
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2( 0, 270 )
@@ -59,4 +60,4 @@ position = Vector2( 143, 133 )
 direction = 1
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
-collision_mask = 26
+collision_mask = 58

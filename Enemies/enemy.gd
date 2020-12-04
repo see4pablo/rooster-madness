@@ -1,6 +1,7 @@
 extends KinematicBody2D
 
 # vars to edit when change enemy type:
+var life = 200
 var character_speed = 1
 export var search_rad = 300
 #------------------------------------
@@ -47,9 +48,13 @@ func _physics_process(delta):
 
 
 func _on_top_checker_body_entered(body):
+	if body.is_class("KinematicBody2D"):
+		pass
+	elif body.is_class("StaticBody2D"):
+		pass
 	$AnimatedSprite.play("squashed")
 	move_speed = 0
 	set_collision_layer_bit(5, false)
 	set_collision_mask_bit(0, false)
-	$top_checker.set_collision_layer_bit(5, false)
-	$top_checker.set_collision_mask_bit(0, false)
+	$hit_checker.set_collision_layer_bit(5, false)
+	$hit_checker.set_collision_mask_bit(0, false)
