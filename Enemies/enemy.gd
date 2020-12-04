@@ -26,6 +26,7 @@ func _ready():
 func player_detected():
 	return $player_checker_left.is_colliding() or $player_checker_right.is_colliding()
 
+
 func _physics_process(delta):
 	
 	if player_detected():
@@ -44,17 +45,32 @@ func _physics_process(delta):
 	velocity.x = move_speed*direction
 	
 	velocity = move_and_slide(velocity, Vector2.UP)
-	
+
+
+func _get_hit(damage):
+	life -= damage
+	if life <= 0:
+		# ToDo: change sprite to "die"
+		$AnimatedSprite.play("squashed")
+		move_speed = 0
+		set_collision_layer_bit(5, false)
+		set_collision_mask_bit(0, false)
+		$hit_checker.set_collision_layer_bit(5, false)
+		$hit_checker.set_collision_mask_bit(0, false)
+		$Timer.start()
+	else:
+		# ToDo: change sprite to "getHit"
+		$AnimatedSprite.play("squashed")
 
 
 func _on_top_checker_body_entered(body):
-	if body.is_class("KinematicBody2D"):
-		pass
+	# ToDo: change "_get_h_weight" func
+	if body.is_class("KinematicBody2D") and body.has_method("_get_h_weight"):
+		_get_hit(200)
+		# ToDo: call player's func 
 	elif body.is_class("StaticBody2D"):
-		pass
-	$AnimatedSprite.play("squashed")
-	move_speed = 0
-	set_collision_layer_bit(5, false)
-	set_collision_mask_bit(0, false)
-	$hit_checker.set_collision_layer_bit(5, false)
-	$hit_checker.set_collision_mask_bit(0, false)
+		_get_hit(100)
+
+
+func _on_Timer_timeout():
+	queue_free() # enemy die
