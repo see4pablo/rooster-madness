@@ -55,7 +55,6 @@ func _physics_process(delta):
 
 
 func _jump():
-	print("a")
 	actual_state = jumping
 	velocity.x = move_speed*(direction*-1)*50
 	velocity.y = gravity*(-1)*60
@@ -65,11 +64,10 @@ func _jump():
 func get_hit(damage):
 	if actual_state == getting_hit:
 		return false
-	#$Receive_hit.start(0.5)
+	$Receive_hit.start(0.5)
 	life -= damage
 	actual_state = getting_hit
 	if life <= 0:
-		# ToDo: change sprite to "die"
 		$AnimatedSprite.play("die")
 		move_speed = 0
 		set_collision_layer_bit(5, false)
