@@ -1,7 +1,7 @@
 extends KinematicBody2D
 
 # vars to edit when change enemy type:
-var life = 200
+var life = 400
 var character_speed = 1
 export var search_rad = 300
 #------------------------------------
@@ -9,6 +9,7 @@ export var search_rad = 300
 var actual_state = idle
 var idle = 1
 var getting_hit = 2
+var jumping = 3
 #------------------------------------
 
 var LEFT = -1
@@ -46,21 +47,27 @@ func _physics_process(delta):
 		$AnimatedSprite.flip_h = not $AnimatedSprite.flip_h
 	
 	velocity.y += gravity 
-	velocity.x = move_speed*direction
-	velocity = move_and_slide(velocity, Vector2.UP)
+	if actual_state != jumping:
+		velocity.x = move_speed*direction
+		velocity = move_and_slide(velocity, Vector2.UP)
+	elif is_on_floor():
+		actual_state = idle
 
 
 func _jump():
-	pass
+	print("a")
+	actual_state = jumping
+	velocity.x = move_speed*(direction*-1)*50
+	velocity.y = gravity*(-1)*60
+	velocity = move_and_slide(velocity)
 	
 
 func get_hit(damage):
 	if actual_state == getting_hit:
-		return
-	$Receive_hit.start(0.5)
+		return false
+	#$Receive_hit.start(0.5)
 	life -= damage
 	actual_state = getting_hit
-	_jump()
 	if life <= 0:
 		# ToDo: change sprite to "die"
 		$AnimatedSprite.play("die")
@@ -70,11 +77,16 @@ func get_hit(damage):
 		$hit_checker.set_collision_layer_bit(5, false)
 		$hit_checker.set_collision_mask_bit(0, false)
 		$Timer.start()
+		return true
 	else:
+		_jump()
 		$AnimatedSprite.play("getHit")
+		return false
 
 
 func _on_hit_checker_body_entered(body):
+	if actual_state == jumping:
+		return
 	if body.is_class("KinematicBody2D") and body.has_method("get_attacked"):
 		body.get_attacked(self)
 					
