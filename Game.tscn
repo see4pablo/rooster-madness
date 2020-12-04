@@ -60,4 +60,4 @@ position = Vector2( 143, 133 )
 direction = 1
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
-collision_mask = 26
+collision_mask = 58
