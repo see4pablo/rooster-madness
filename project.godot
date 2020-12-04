@@ -58,7 +58,7 @@ throw={
 
 [layer_names]
 
-2d_physics/layer_1="character"
+2d_physics/layer_1="player"
 2d_physics/layer_2="objects"
 2d_physics/layer_3="objects_from_character"
 2d_physics/layer_4="objects_from_enemies"

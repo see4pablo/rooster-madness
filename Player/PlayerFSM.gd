@@ -54,7 +54,13 @@ func _get_transition(delta):
 		
 
 func _enter_state(new_state, old_state):
-	pass
+	match new_state:
+		states.idle:
+			parent.anim_player.play("idle")
+		states.walk:
+			parent.anim_player.play("walk")
+		states.fall:
+			parent.anim_player.play("fall")
 
 func _exit_state(old_state, new_state):
 	pass
