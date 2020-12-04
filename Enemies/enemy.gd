@@ -1,12 +1,18 @@
 extends KinematicBody2D
 
+# vars to edit when change enemy type:
+var character_speed = 1
+export var search_rad = 300
+#------------------------------------
+
 var LEFT = -1
 var RIGHT = 1
 
 var velocity = Vector2()
+var move_speed = character_speed * Globals.UNIT_SIZE
+var gravity = 20
 export var direction = -1
 
-export var search_rad = 300
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -32,9 +38,18 @@ func _physics_process(delta):
 		direction = direction * -1
 		$AnimatedSprite.flip_h = not $AnimatedSprite.flip_h
 	
-	velocity.y += 20 
+	velocity.y += gravity 
 	
-	velocity.x = 50*direction
+	velocity.x = move_speed*direction
 	
 	velocity = move_and_slide(velocity, Vector2.UP)
 	
+
+
+func _on_top_checker_body_entered(body):
+	$AnimatedSprite.play("squashed")
+	move_speed = 0
+	set_collision_layer_bit(5, false)
+	set_collision_mask_bit(0, false)
+	$top_checker.set_collision_layer_bit(5, false)
+	$top_checker.set_collision_mask_bit(0, false)
