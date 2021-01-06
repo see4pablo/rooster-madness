@@ -33,9 +33,9 @@ func player_detected():
 
 
 func _physics_process(delta):
-	print("idle", idle)
-	print("jumping", jumping)
-	print("getting_hit", getting_hit)
+	#print("idle", idle)
+	#print("jumping", jumping)
+	#print("getting_hit", getting_hit)
 		
 	if player_detected():
 		if $player_checker_left.is_colliding():
