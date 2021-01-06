@@ -22,6 +22,7 @@ func _input(event):
 		parent.glide_cond = true
 		
 		if [states.idle, states.walk].has(state):
+			parent.jump_sound.play()		
 			parent.velocity.y += parent.max_jump_velocity
 	
 	if event.is_action_released("jump"):
@@ -31,6 +32,7 @@ func _input(event):
 	if not [states.dash, states.damaged].has(state):
 		if event.is_action_pressed("dash") and parent._can_dash():
 			set_state(states.dash)
+			parent.dash_sound.play()
 			parent._dash()
 		
 			
