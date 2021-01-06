@@ -41,7 +41,9 @@ func _state_logic(delta):
 		parent._handle_move_input()
 	if state != states.dash:
 		parent._apply_gravity(delta)
-		
+	if state == states.dash:
+		if parent.velocity.length() < parent.dash_speed - Globals.EPSILON:
+			set_state(states.idle)
 	parent._apply_movement(delta)
 	
 	
