@@ -37,6 +37,11 @@ onready var user_gui = $Interface/GUI
 onready var playerFSM = $StateMachine
 onready var dash_cooldown = $DashCooldown
 onready var damage_cooldown = $DamageCooldown
+onready var physics_shape = $PhysicsShape
+
+onready var jump_sound = $JumpSound
+onready var dash_sound = $DashSound
+onready var feather_sound = $FeatherSound
 
 func _ready():
 	gravity = 2 * max_jump_height / pow(jump_duration, 2)
