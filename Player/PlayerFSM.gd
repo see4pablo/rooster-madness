@@ -114,9 +114,6 @@ func _enter_state(new_state, old_state):
 		states.glide:
 			parent.state_info.text = "glide"
 			parent.anim_player.play("glide")
-		states.dash:
-			parent.state_info.text = "dash"
-			parent.anim_player.play("dash")
 		states.damaged:
 			parent.state_info.text = "damaged"
 			parent.anim_player.play("damaged")
