@@ -1,5 +1,8 @@
 extends "res://StateMachine.gd"
 
+
+var jump_pressed = false
+
 func _ready():
 	add_state("idle")
 	add_state("walk")
@@ -12,12 +15,17 @@ func _ready():
 	call_deferred("set_state", states.idle)
 	
 func _input(event):
-	if event.is_action_pressed("jump"):
+	
+	if event.is_action_pressed("jump") and not jump_pressed:
+		
+		jump_pressed = true
 		parent.glide_cond = true
+		
 		if [states.idle, states.walk].has(state):
 			parent.velocity.y += parent.max_jump_velocity
 	
 	if event.is_action_released("jump"):
+		jump_pressed = false
 		parent.glide_cond = false
 	
 	if not [states.dash, states.damaged].has(state):
