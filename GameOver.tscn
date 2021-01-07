@@ -1,0 +1,36 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Retry.png" type="Texture" id=1]
+[ext_resource path="res://gameOver.jpg" type="Texture" id=2]
+[ext_resource path="res://GameOver.gd" type="Script" id=3]
+
+[node name="GameOver" type="Node"]
+script = ExtResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="."]
+scale = Vector2( 1.365, 1.117 )
+texture = ExtResource( 2 )
+centered = false
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+margin_left = 383.0
+margin_top = 476.0
+margin_right = 641.0
+margin_bottom = 600.0
+size_flags_horizontal = 4
+size_flags_vertical = 8
+
+[node name="TextureButton" type="TextureButton" parent="MarginContainer/VBoxContainer"]
+margin_right = 258.0
+margin_bottom = 124.0
+texture_normal = ExtResource( 1 )
+[connection signal="pressed" from="MarginContainer/VBoxContainer/TextureButton" to="." method="_on_TextureButton_pressed"]
