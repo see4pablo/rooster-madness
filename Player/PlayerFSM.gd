@@ -130,28 +130,18 @@ func _exit_state(old_state, new_state):
 	
 func get_attacked(enemy):
 	if state == states.dash:
-		var killed = enemy.get_hit(Globals.PLAYER_DASH_DAMAGE)
+		var killed = enemy.receive_hit(Globals.PLAYER_DASH_DAMAGE)
 		if killed:
 			parent._had_killed()
 		#vertical jump now
 		set_state(states.idle)
 		parent.velocity.y += parent.max_jump_velocity
-		
-		
-		
+			
 	elif state != states.damaged:
 		
 		set_state(states.damaged)
-		parent._receive_hit()
-		
-		#bounce to the left
-		if(enemy.position.x < parent.position.x):
-			parent.velocity = Vector2(-1,1).normalized() * parent.bounce_speed
-		#bounce to the right
-		else:
-			parent.velocity = Vector2(1,1).normalized() * parent.bounce_speed
-		
-		
+		parent._receive_hit(enemy)
+
 		#check death state
 		if(parent._is_dead()):
 			set_state(states.dead)

@@ -97,10 +97,17 @@ func _dash():
 	user_gui.dash_on_cooldown()
 
 #return if is death or not
-func _receive_hit():
+func _receive_hit(enemy):
 	lives -= 1
 	user_gui.update_lives(lives)
 	damage_cooldown.start(1)
+
+	#bounce to the left
+	if(enemy.position.x < global_position.x):
+		velocity = Vector2(-1,1).normalized() * bounce_speed
+	#bounce to the right
+	else:
+		velocity = Vector2(1,1).normalized() * bounce_speed
 	
 func _had_killed():
 	dash_cooldown.stop()

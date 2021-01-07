@@ -24,6 +24,8 @@ onready var checker_right = $player_checker_right
 onready var anim_sprite = $Body/AnimatedSprite
 onready var state_info = $Enemy_UI/State_Info
 onready var enemyFSM = $StateMachine
+onready var damage_cooldown = $Receive_hit
+onready var dead_timer = $Timer
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -42,51 +44,42 @@ func _handle_facing():
 
 	if(velocity.x > 0 and facing_right == false):
 		facing_right = true
-		$Body.scale.x = 1
+		$Body.scale.x = -1
 	elif(velocity.x < 0 and facing_right == true):
 		facing_right = false
-		$Body.scale.x = -1
+		$Body.scale.x = 1
 
 
 func _jump():
 	jumping = true
 	var direction = -1
 	if facing_right: direction = 1
-	velocity.x = move_speed*(direction*-1)*50
-	velocity.y = gravity*(-1)*60
-	velocity = move_and_slide(velocity)
+	velocity.x = move_speed*(direction*-1)
+	velocity.y = move_speed*(-1)
 	
 
-func _get_hit(damage):
-	if getting_hit:
-		return false
-	$Receive_hit.start(0.5)
+func receive_hit(damage):
+
 	life -= damage
-	getting_hit = true
-	idle = false
-	if life <= 0:
-		$AnimatedSprite.play("die")
-		move_speed = 0
-		set_collision_layer_bit(5, false)
-		set_collision_mask_bit(0, false)
-		$hit_checker.set_collision_layer_bit(5, false)
-		$hit_checker.set_collision_mask_bit(0, false)
-		$Timer.start()
-		return true
-	else:
-		_jump()
-		anim_sprite.play("getHit")
-		return false
+	$Receive_hit.start(2)
+	_jump()
+	
+		
+	return enemyFSM._receive_hit()
+
+func _is_dead():
+	return life <= 0
+
+func _on_dead():
+
+	set_collision_layer_bit(5, false)
+	set_collision_mask_bit(0, false)
+	$hit_checker.set_collision_layer_bit(5, false)
+	$hit_checker.set_collision_mask_bit(0, false)
 
 
 func _on_hit_checker_body_entered(body):
-	if jumping:
-		return
-	if body.is_class("KinematicBody2D") and body.has_method("get_attacked"):
-		body.get_attacked(self)
-					
-	elif body.is_class("StaticBody2D"):
-		_get_hit(100)
+	enemyFSM._on_hit_checker_body_entered(body)
 
 
 func _on_Timer_timeout():
@@ -94,4 +87,4 @@ func _on_Timer_timeout():
 
 
 func _on_Receive_hit_timeout():
-	enemyFSM.set_state(enemyFSM.states.idle)
+	enemyFSM._on_Receive_hit_timeout()
