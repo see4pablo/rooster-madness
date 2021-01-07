@@ -1,7 +1,10 @@
 extends "res://StateMachine.gd"
 
-func _ready():
+var rng = RandomNumberGenerator.new()
 
+func _ready():
+	
+	rng.randomize()
 	add_state("idle")
 	add_state("walk_left")
 	add_state("walk_right")
@@ -24,7 +27,10 @@ func _get_transition(delta):
 			elif parent.checker_right.is_colliding():
 				return states.follow_right
 			else:
-				return states.walk_right
+				if rng.randf() > 0.5:
+					return states.walk_right
+				else:
+					return states.walk_left
 		states.walk_left:
 			if parent.checker_left.is_colliding():
 				return states.follow_left

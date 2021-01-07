@@ -32,6 +32,7 @@ onready var life_info = $Enemy_UI/Life_Info
 func _ready():
 	checker_left.cast_to.x = search_rad * -1
 	checker_right.cast_to.x = search_rad
+	move_speed = move_speed * enemyFSM.rng.randf_range(0.8,1.5)
 	life_info.text = str(life)
 
 func _apply_gravity(delta):

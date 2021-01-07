@@ -1,7 +1,7 @@
 extends KinematicBody2D
 
 # vars to edit when change enemy type:
-var life = 400
+var life = 200
 var character_speed = 1
 export var search_rad = 300
 #------------------------------------
@@ -33,6 +33,7 @@ func _ready():
 	checker_left.cast_to.x = search_rad * -1
 	checker_right.cast_to.x = search_rad
 	life_info.text = str(life)
+	move_speed = move_speed * enemyFSM.rng.randf_range(0.8,1.5)
 
 func _apply_gravity(delta):
 	velocity.y += gravity * delta
