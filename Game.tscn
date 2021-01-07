@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Enemies/enemy.tscn" type="PackedScene" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://backgorund and level assets/background/road&lamps.png" type="Texture" id=5]
 [ext_resource path="res://backgorund and level assets/background/back-buildings.png" type="Texture" id=6]
 [ext_resource path="res://backgorund and level assets/city_tileset/tileset.tres" type="TileSet" id=7]
+[ext_resource path="res://Enemies/snowman.tscn" type="PackedScene" id=8]
 
 [sub_resource type="SegmentShape2D" id=1]
 a = Vector2( -10000, 0 )
@@ -87,10 +88,11 @@ tile_data = PoolIntArray( 65535, 0, 0, 125, 4, 0, 138, 4, 0, 131071, 0, 0, 65629
 
 [node name="Enemies" type="Node2D" parent="."]
 
-[node name="enemy2" parent="Enemies" instance=ExtResource( 2 )]
-position = Vector2( 897.134, 226.998 )
+[node name="Snowman" parent="Enemies" instance=ExtResource( 8 )]
+position = Vector2( 630.739, 516.188 )
 
 [node name="Scarecrow" parent="Enemies" instance=ExtResource( 2 )]
+position = Vector2( 848.528, 251.73 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
-position = Vector2( 130.238, 544.405 )
+position = Vector2( 133.066, 540.162 )

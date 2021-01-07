@@ -14,7 +14,7 @@ var glide_cond = false
 var dash_cond = false
 var hit_cond = false
 
-var max_jump_height = 3 * Globals.UNIT_SIZE
+var max_jump_height = 3.5 * Globals.UNIT_SIZE
 var min_jump_height = 0.8 * Globals.UNIT_SIZE
 var jump_duration = 0.6
 
