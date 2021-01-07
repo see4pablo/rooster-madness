@@ -14,9 +14,9 @@ var glide_cond = false
 var dash_cond = false
 var hit_cond = false
 
-var max_jump_height = 2.25 * Globals.UNIT_SIZE
+var max_jump_height = 3 * Globals.UNIT_SIZE
 var min_jump_height = 0.8 * Globals.UNIT_SIZE
-var jump_duration = 0.5
+var jump_duration = 0.6
 
 var velocity = Vector2()
 var move_speed = 5 * Globals.UNIT_SIZE
@@ -53,7 +53,8 @@ func _ready():
 	user_gui.update_lives(lives)
 	
 func _apply_gravity(delta):
-	if glide_cond:
+	if velocity.y > 0 and glide_cond:
+		print(velocity.y)
 		velocity.y += gliding_gravity * delta
 	else:
 		velocity.y += gravity * delta

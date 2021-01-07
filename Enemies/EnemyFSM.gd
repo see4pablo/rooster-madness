@@ -9,7 +9,7 @@ func _ready():
 	add_state("follow_right")
 	add_state("damaged")
 	add_state("dead")
-	call_deferred("set_state", states.walk_left)
+	call_deferred("set_state", states.idle)
 	
 func _state_logic(delta):
 
@@ -89,6 +89,7 @@ func _on_hit_checker_body_entered(body):
 
 	if state != states.damaged and \
 		body.is_class("KinematicBody2D") and body.has_method("get_attacked"):
+		print(body.playerFSM.states.keys()[body.playerFSM.state])
 		body.get_attacked(parent)
 
 func _on_Receive_hit_timeout():

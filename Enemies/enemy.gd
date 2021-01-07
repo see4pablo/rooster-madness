@@ -26,11 +26,13 @@ onready var state_info = $Enemy_UI/State_Info
 onready var enemyFSM = $StateMachine
 onready var damage_cooldown = $Receive_hit
 onready var dead_timer = $Timer
+onready var life_info = $Enemy_UI/Life_Info
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	checker_left.cast_to.x = search_rad * -1
 	checker_right.cast_to.x = search_rad
+	life_info.text = str(life)
 
 func _apply_gravity(delta):
 	velocity.y += gravity * delta
@@ -61,6 +63,7 @@ func _jump():
 func receive_hit(damage):
 
 	life -= damage
+	life_info.text = str(life)
 	$Receive_hit.start(2)
 	_jump()
 	

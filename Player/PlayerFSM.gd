@@ -42,7 +42,7 @@ func _state_logic(delta):
 	if state != states.dash:
 		parent._apply_gravity(delta)
 	if state == states.dash:
-		if parent.velocity.length() < parent.dash_speed - Globals.EPSILON:
+		if parent.velocity.length() < parent.dash_speed - Globals.DASH_EPSILON:
 			set_state(states.idle)
 	parent._apply_movement(delta)
 	
@@ -129,6 +129,8 @@ func _exit_state(old_state, new_state):
 
 	
 func get_attacked(enemy):
+	
+	print(states.keys()[state])
 	if state == states.dash:
 		var killed = enemy.receive_hit(Globals.PLAYER_DASH_DAMAGE)
 		if killed:
