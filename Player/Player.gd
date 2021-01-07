@@ -128,5 +128,6 @@ func get_attacked(enemy):
 	playerFSM.get_attacked(enemy)
 	
 #
-	
-
+# win function
+func _on_EndArea_body_entered(body):
+	print("YOU WIN")
