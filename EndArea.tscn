@@ -3,7 +3,7 @@
 [ext_resource path="res://u-cursos.png" type="Texture" id=1]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 165.891, 142.815 )
+extents = Vector2( 98.5471, 91.1813 )
 
 [node name="EndArea" type="Area2D"]
 position = Vector2( 3, 0 )

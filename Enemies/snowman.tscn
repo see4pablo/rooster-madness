@@ -32,22 +32,22 @@ region = Rect2( 128, 64, 64, 64 )
 [sub_resource type="AtlasTexture" id=6]
 flags = 4
 atlas = ExtResource( 2 )
-region = Rect2( 192, 64, 64, 64 )
+region = Rect2( 0, 64, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=7]
 flags = 4
 atlas = ExtResource( 2 )
-region = Rect2( 0, 64, 64, 64 )
+region = Rect2( 64, 64, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=8]
 flags = 4
 atlas = ExtResource( 2 )
-region = Rect2( 64, 64, 64, 64 )
+region = Rect2( 128, 64, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=9]
 flags = 4
 atlas = ExtResource( 2 )
-region = Rect2( 128, 64, 64, 64 )
+region = Rect2( 192, 64, 64, 64 )
 
 [sub_resource type="SpriteFrames" id=10]
 animations = [ {
@@ -56,22 +56,22 @@ animations = [ {
 "name": "idle",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ) ],
-"loop": false,
-"name": "die",
-"speed": 10.0
-}, {
-"frames": [ SubResource( 7 ), SubResource( 8 ), SubResource( 9 ) ],
+"frames": [ SubResource( 3 ), SubResource( 4 ), SubResource( 5 ) ],
 "loop": false,
 "name": "getHit",
 "speed": 7.0
+}, {
+"frames": [ SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ) ],
+"loop": false,
+"name": "die",
+"speed": 10.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=11]
 extents = Vector2( 14.8297, 21.781 )
 
 [sub_resource type="RectangleShape2D" id=12]
-extents = Vector2( 42.6107, 35.8113 )
+extents = Vector2( 45.1072, 38.65 )
 
 [node name="Snowman" type="KinematicBody2D"]
 collision_layer = 16
@@ -125,6 +125,7 @@ one_shot = true
 script = ExtResource( 3 )
 
 [node name="Enemy_UI" type="VBoxContainer" parent="."]
+visible = false
 margin_left = -62.0
 margin_top = -72.0
 margin_right = 63.0

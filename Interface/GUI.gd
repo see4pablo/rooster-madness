@@ -11,7 +11,7 @@ func _ready():
 	dash_available()
 	
 func update_lives(number_of_lives):
-	assert(number_of_lives >= 0 and number_of_lives <= 3)
+	#assert(number_of_lives >= 0 and number_of_lives <= 3)
 	for i in range(max_hearts):
 		if(i < number_of_lives):
 			hearts[i].show()
