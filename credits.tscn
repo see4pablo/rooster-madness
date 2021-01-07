@@ -2,8 +2,23 @@
 
 [ext_resource path="res://Back.png" type="Texture" id=1]
 [ext_resource path="res://Node.gd" type="Script" id=2]
-[ext_resource path="res://TextureButton.gd" type="Script" id=3]
 [ext_resource path="res://PhotoFunia-1609982256.jpg" type="Texture" id=4]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends TextureButton
+
+
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+#func _process(delta):
+#	pass
+"
 
 [node name="Node" type="Node"]
 script = ExtResource( 2 )
@@ -39,5 +54,5 @@ margin_bottom = 124.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 texture_normal = ExtResource( 1 )
-script = ExtResource( 3 )
+script = SubResource( 1 )
 [connection signal="pressed" from="MarginContainer/VBoxContainer/TextureButton" to="." method="_on_TextureButton_pressed"]

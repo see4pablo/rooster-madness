@@ -3,7 +3,8 @@ extends Node
 
 
 func _ready():
-	 $MarginContainer/VBoxContainer/VBoxContainer/TextureButton.grab_focus()
+	MusicController.play_music()
+	$MarginContainer/VBoxContainer/VBoxContainer/TextureButton.grab_focus()
 
 
 

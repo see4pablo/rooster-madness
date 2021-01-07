@@ -119,6 +119,7 @@ func _enter_state(new_state, old_state):
 			parent.state_info.text = "damaged"
 			parent.anim_player.play("damaged")
 		states.dead:
+			get_tree().change_scene("res://GameOver.tscn")
 			parent.state_info.text = "dead"
 			parent.anim_player.play("dead")
 
