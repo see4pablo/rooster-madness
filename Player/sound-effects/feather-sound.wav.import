@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/feather-sound.wav-916b9e56e77394fdd90e33a5fe9a07b6.sample"
+
+[deps]
+
+source_file="res://Player/sound-effects/feather-sound.wav"
+dest_files=[ "res://.import/feather-sound.wav-916b9e56e77394fdd90e33a5fe9a07b6.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

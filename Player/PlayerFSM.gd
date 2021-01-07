@@ -1,5 +1,8 @@
 extends "res://StateMachine.gd"
 
+
+var jump_pressed = false
+
 func _ready():
 	add_state("idle")
 	add_state("walk")
@@ -12,17 +15,24 @@ func _ready():
 	call_deferred("set_state", states.idle)
 	
 func _input(event):
-	if event.is_action_pressed("jump"):
+	
+	if event.is_action_pressed("jump") and not jump_pressed:
+		
+		jump_pressed = true
 		parent.glide_cond = true
+		
 		if [states.idle, states.walk].has(state):
+			parent.jump_sound.play()		
 			parent.velocity.y += parent.max_jump_velocity
 	
 	if event.is_action_released("jump"):
+		jump_pressed = false
 		parent.glide_cond = false
 	
 	if not [states.dash, states.damaged].has(state):
 		if event.is_action_pressed("dash") and parent._can_dash():
 			set_state(states.dash)
+			parent.dash_sound.play()
 			parent._dash()
 		
 			
@@ -31,7 +41,9 @@ func _state_logic(delta):
 		parent._handle_move_input()
 	if state != states.dash:
 		parent._apply_gravity(delta)
-		
+	if state == states.dash:
+		if parent.velocity.length() < parent.dash_speed - Globals.EPSILON:
+			set_state(states.idle)
 	parent._apply_movement(delta)
 	
 	
@@ -102,9 +114,6 @@ func _enter_state(new_state, old_state):
 		states.glide:
 			parent.state_info.text = "glide"
 			parent.anim_player.play("glide")
-		states.dash:
-			parent.state_info.text = "dash"
-			parent.anim_player.play("dash")
 		states.damaged:
 			parent.state_info.text = "damaged"
 			parent.anim_player.play("damaged")

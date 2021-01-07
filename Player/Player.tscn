@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://Player/sprites/animation/1.-derecha.png" type="Texture" id=1]
 [ext_resource path="res://Player/PlayerFSM.gd" type="Script" id=2]
@@ -9,6 +9,9 @@
 [ext_resource path="res://Player/sprites/animation/11.-Dash.png" type="Texture" id=7]
 [ext_resource path="res://Player/sprites/animation/7.-Volar1.png" type="Texture" id=8]
 [ext_resource path="res://Interface/GUI.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Player/sound-effects/jump-sound.wav" type="AudioStream" id=10]
+[ext_resource path="res://Player/sound-effects/dash-sound.wav" type="AudioStream" id=11]
+[ext_resource path="res://Player/sound-effects/feather-sound.wav" type="AudioStream" id=12]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 29.3169
@@ -213,5 +216,14 @@ one_shot = true
 [node name="DashCooldown" type="Timer" parent="."]
 wait_time = 2.0
 one_shot = true
+
+[node name="JumpSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 10 )
+
+[node name="DashSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 11 )
+
+[node name="FeatherSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 12 )
 [connection signal="timeout" from="DamageCooldown" to="StateMachine" method="_on_DamageCooldown_timeout"]
 [connection signal="timeout" from="DashCooldown" to="StateMachine" method="_on_DashCooldown_timeout"]
