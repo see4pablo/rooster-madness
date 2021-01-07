@@ -13,25 +13,22 @@ __meta__ = {
 }
 
 [node name="DashIcon" type="NinePatchRect" parent="."]
-anchor_top = 1.0
-anchor_bottom = 1.0
-margin_top = -161.0
-margin_right = 101.0
+margin_right = 372.0
+margin_bottom = 110.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="1" type="TextureRect" parent="DashIcon"]
-anchor_left = 0.5
+anchor_left = 1.0
 anchor_top = 0.5
-anchor_right = 0.5
+anchor_right = 1.0
 anchor_bottom = 0.5
-margin_left = 9.5
-margin_top = -109.5
-margin_right = 114.5
-margin_bottom = 9.5
+margin_left = -83.7755
+margin_top = -43.449
+margin_right = -2.77551
+margin_bottom = 41.551
 texture = ExtResource( 1 )
-expand = true
 stretch_mode = 1
 __meta__ = {
 "_edit_use_anchors_": false
@@ -40,8 +37,8 @@ __meta__ = {
 [node name="HeartBar" type="HBoxContainer" parent="."]
 margin_left = 25.0
 margin_top = 25.0
-margin_right = 998.0
-margin_bottom = 109.0
+margin_right = 255.0
+margin_bottom = 95.0
 custom_constants/separation = 10
 __meta__ = {
 "_edit_use_anchors_": false
@@ -49,20 +46,20 @@ __meta__ = {
 
 [node name="1" type="TextureRect" parent="HeartBar"]
 margin_right = 70.0
-margin_bottom = 84.0
+margin_bottom = 70.0
 texture = ExtResource( 2 )
 stretch_mode = 3
 
 [node name="2" type="TextureRect" parent="HeartBar"]
 margin_left = 80.0
 margin_right = 150.0
-margin_bottom = 84.0
+margin_bottom = 70.0
 texture = ExtResource( 2 )
 stretch_mode = 3
 
 [node name="3" type="TextureRect" parent="HeartBar"]
 margin_left = 160.0
 margin_right = 230.0
-margin_bottom = 84.0
+margin_bottom = 70.0
 texture = ExtResource( 2 )
 stretch_mode = 3
