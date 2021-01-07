@@ -102,6 +102,24 @@ one_shot = true
 
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource( 3 )
+
+[node name="Enemy_UI" type="HBoxContainer" parent="."]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -42.5874
+margin_top = -59.7622
+margin_right = 45.4126
+margin_bottom = -45.7622
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="State_Info" type="Label" parent="Enemy_UI"]
+margin_left = 32.0
+margin_right = 56.0
+margin_bottom = 14.0
+text = "idle"
 [connection signal="body_entered" from="hit_checker" to="." method="_on_hit_checker_body_entered"]
 [connection signal="timeout" from="Receive_hit" to="." method="_on_Receive_hit_timeout"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

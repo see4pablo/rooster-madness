@@ -21,7 +21,7 @@ func _input(event):
 		jump_pressed = true
 		parent.glide_cond = true
 		
-		if [states.idle, states.walk].has(state):
+		if [states.idle, states.walk].has(state) and parent.is_on_floor():
 			parent.jump_sound.play()		
 			parent.velocity.y += parent.max_jump_velocity
 	
@@ -51,7 +51,7 @@ func _get_transition(delta):
 	match state:
 		states.idle:
 			if !parent.is_on_floor():
-				if parent.velocity.y < 0:
+				if parent.velocity.y < - Globals.EPSILON:
 					return states.jump
 				elif parent.velocity.y >= 0:
 					return states.fall
@@ -59,9 +59,9 @@ func _get_transition(delta):
 				return states.walk
 		states.walk:
 			if !parent.is_on_floor():
-				if parent.velocity.y < 0:
+				if parent.velocity.y < - Globals.EPSILON:
 					return states.jump
-				elif parent.velocity.y >= 0:
+				elif parent.velocity.y >= Globals.EPSILON:
 					return states.fall
 			elif parent.velocity.x == 0:
 				return states.idle
@@ -70,23 +70,23 @@ func _get_transition(delta):
 				return states.idle
 			elif parent.glide_cond:
 				return states.glide
-			elif parent.velocity.y >= 0:
+			elif parent.velocity.y >= Globals.EPSILON:
 				return states.fall
 		states.fall:
 			if parent.is_on_floor():
 				return states.idle
 			elif parent.glide_cond:
 				return states.glide
-			elif parent.velocity.y < 0:
+			elif parent.velocity.y < - Globals.EPSILON :
 				return states.jump
 		states.glide:
 			if parent.is_on_floor():
 				return states.idle
 			elif not parent.glide_cond:
-				if parent.velocity.y >= 0:
-					return states.jump
-				else:
+				if parent.velocity.y >= Globals.EPSILON:
 					return states.fall
+				elif parent.velocity.y < - Globals.EPSILON:
+					return states.jump
 		states.dash:
 			if parent.position.distance_to(parent.dash_origin) >= parent.dash_distance:
 				return states.idle	
