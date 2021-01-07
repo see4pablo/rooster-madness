@@ -130,4 +130,5 @@ func get_attacked(enemy):
 #
 # win function
 func _on_EndArea_body_entered(body):
+	get_tree().change_scene("res://Win.tscn")
 	print("YOU WIN")
