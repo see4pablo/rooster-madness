@@ -1,7 +1,8 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Enemies/enemy.gd" type="Script" id=1]
 [ext_resource path="res://Enemies/sprites/scarecrow.png" type="Texture" id=2]
+[ext_resource path="res://Enemies/EnemyFSM.gd" type="Script" id=3]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 2 )
@@ -56,7 +57,9 @@ collision_layer = 16
 collision_mask = 2147483653
 script = ExtResource( 1 )
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+[node name="Body" type="Node2D" parent="."]
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="Body"]
 scale = Vector2( 3, 3 )
 frames = SubResource( 7 )
 animation = "idle"
@@ -96,6 +99,9 @@ one_shot = true
 
 [node name="Timer" type="Timer" parent="."]
 one_shot = true
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource( 3 )
 [connection signal="body_entered" from="hit_checker" to="." method="_on_hit_checker_body_entered"]
 [connection signal="timeout" from="Receive_hit" to="." method="_on_Receive_hit_timeout"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

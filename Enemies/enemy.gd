@@ -7,61 +7,44 @@ export var search_rad = 300
 #------------------------------------
 # States
 var idle = true
+var facing_right = true
 var getting_hit = false
 var jumping = false
 #------------------------------------
+const UP = Vector2(0, -1)
+const SLOPE_STOP = 64
 
-var LEFT = -1
-var RIGHT = 1
 
 var velocity = Vector2()
 var move_speed = character_speed * Globals.UNIT_SIZE
 var gravity = 20
 export var direction = -1
 
+onready var checker_left = $player_checker_left
+onready var checker_right = $player_checker_right
+onready var anim_sprite = $Body/AnimatedSprite
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	if direction == 1:
-		$AnimatedSprite.flip_h = true
-	$player_checker_left.cast_to.x = search_rad * -1
-	$player_checker_right.cast_to.x = search_rad
-	
+	checker_left.cast_to.x = search_rad * -1
+	checker_right.cast_to.x = search_rad
 
-func player_detected():
-	return $player_checker_left.is_colliding() or $player_checker_right.is_colliding()
+func _apply_gravity(delta):
+	velocity.y += gravity * delta
+
+func _apply_movement(delta):
+	velocity = move_and_slide(velocity, UP, SLOPE_STOP)
+	_handle_facing()
 
 
-func _physics_process(delta):
-	#print("idle", idle)
-	#print("jumping", jumping)
-	#print("getting_hit", getting_hit)
-		
-	if player_detected():
-		if $player_checker_left.is_colliding():
-			direction = LEFT
-			$AnimatedSprite.flip_h = false
-		else:
-			direction = RIGHT
-			$AnimatedSprite.flip_h = true
-	elif is_on_wall(): # uso elif porque la cond anterior es prioridad sobre esta
-		direction = direction * -1
-		$AnimatedSprite.flip_h = not $AnimatedSprite.flip_h
-	
-	velocity.y += gravity 
-	
-	if not jumping:
-		velocity.x = move_speed*direction
-		velocity = move_and_slide(velocity, Vector2.UP)
-		if not getting_hit:
-			idle = true
-	else:
-		velocity.y += gravity * 5
-		if is_on_floor() or $floor_checker.is_colliding():
-			jumping = false
-			velocity.y = 0
-			velocity = move_and_slide(velocity, Vector2.UP)
-			$AnimatedSprite.play("idle")
+func _handle_facing():
+
+	if(velocity.x > 0 and facing_right == false):
+		facing_right = true
+		$Body.scale.x = 1
+	elif(velocity.x < 0 and facing_right == true):
+		facing_right = false
+		$Body.scale.x = -1
 
 
 func _jump():
@@ -89,7 +72,7 @@ func get_hit(damage):
 		return true
 	else:
 		_jump()
-		$AnimatedSprite.play("getHit")
+		anim_sprite.play("getHit")
 		return false
 
 

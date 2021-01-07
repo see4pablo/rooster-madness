@@ -96,7 +96,8 @@ func _get_transition(delta):
 func _enter_state(new_state, old_state):
 	match new_state:
 		states.idle:
-			parent.velocity = Vector2.ZERO
+			if old_state == states.dash:
+				parent.velocity = Vector2.ZERO
 			parent.state_info.text = "idle"
 			parent.anim_player.play("idle")
 		states.walk:
@@ -122,7 +123,9 @@ func _enter_state(new_state, old_state):
 			parent.anim_player.play("dead")
 
 func _exit_state(old_state, new_state):
-	pass
+	match old_state:
+		states.dash:
+			parent.velocity = Vector2.ZERO
 
 	
 func get_attacked(enemy):
